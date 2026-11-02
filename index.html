@@ -474,19 +474,36 @@
       width: 100%;
       margin: 0 auto;
     }
+    .couple-gallery-viewport {
+      overflow: hidden;
+      border-radius: 14px;
+      touch-action: pan-y;
+    }
     .couple-gallery {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      display: flex;
+      transition: transform 0.8s cubic-bezier(0.22, 0.68, 0, 1);
+      user-select: none;
+    }
+    .couple-gallery.is-blurring {
+      animation: galleryBlurTransition 0.8s ease-in-out;
+    }
+    @keyframes galleryBlurTransition {
+      0%, 100% { filter: blur(0); }
+      45% { filter: blur(7px); }
     }
     .couple-gallery img {
       display: block;
+      flex: 0 0 100%;
       width: 100%;
       aspect-ratio: 3 / 4;
       object-fit: cover;
       object-position: center 38%;
-      border-radius: 14px;
+      border-radius: 0;
       box-shadow: 0 5px 16px rgba(30, 45, 70, 0.24);
+      -webkit-user-drag: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .couple-gallery { transition: none; animation: none; }
     }
     .couple-portrait figcaption {
       margin-top: 1rem;
@@ -671,8 +688,7 @@
       }
       .countdown-number { font-size: 1.1rem; }
       .countdown-label { font-size: 0.7rem; }
-      .couple-gallery { gap: 8px; }
-      .couple-gallery img { border-radius: 10px; }
+      .couple-gallery-viewport { border-radius: 10px; }
       .kbach-divider {
         height: 24px;
         margin: 1.25rem 0 0.75rem;
@@ -724,8 +740,8 @@
     </div>
   </div>
 
-    <!-- Blessings Section -->
-    <section class="blessings fade-in-up">
+  <!-- Blessings Section -->
+  <section class="blessings fade-in-up">
       <h2>យើងខ្ញុំមានកិត្តិយសសូមគោរពអញ្ជើញ</h2>
       <div class="invitation-text">សម្តេច ទ្រង់ ឯកឧត្តម លោកជំទាវ លោកអ្នកឧកញ៉ា អ្នកឧកញ៉ា ឧកញ៉ា លោក លោកស្រី អ្នកនាង កញា ព្រមទាំងប្រិយមិត្តអញ្ជើញចូលរួមជាអធិបតី និងជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធិពរជ័យសិរីសួស្តី ជ័យមង្គល ក្នុងពិធីអាពាហ៍ពិពាហ៍ របស់យើងខ្ញុំទាំងពីរ។<br>
       </div>
@@ -776,8 +792,9 @@
     </section>
 
     <section class="couple-portrait fade-in-up" aria-label="រូបថតកូនកំលោះ និងកូនក្រមុំ">
-      <h2>កម្រងរូបភាព</h2>
-      <figure>
+      <h2>កម្រងរូបភាពគូស្វាមីភរិយា</h2>
+      <figure class="gallery-carousel" role="region" aria-roledescription="carousel" aria-label="កម្រងរូបភាពគូស្វាមីភរិយា">
+        <div class="couple-gallery-viewport">
         <div class="couple-gallery">
           <img src="imag-1.png" alt="" aria-hidden="true">
           <img src="imag-3.png" alt="" aria-hidden="true">
@@ -785,6 +802,7 @@
           <img src="imag-5.png" alt="" aria-hidden="true">
           <img src="imag-4.png" alt="" aria-hidden="true">
           <img src="imag-6.png" alt="" aria-hidden="true">
+        </div>
         </div>
       </figure>
     </section>
@@ -939,6 +957,57 @@
       });
     }, { threshold: 0.15 });
     fadeEls.forEach(el => observer.observe(el));
+
+    // Couple photo carousel
+    const galleryTrack = document.querySelector('.couple-gallery');
+    const gallerySlides = Array.from(galleryTrack.children);
+    const galleryViewport = document.querySelector('.couple-gallery-viewport');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let activeGallerySlide = 0;
+    let galleryTimer;
+    let touchStartX = null;
+    const galleryPaused = prefersReducedMotion.matches;
+
+    function showGallerySlide(index) {
+      const nextSlide = (index + gallerySlides.length) % gallerySlides.length;
+      if (nextSlide !== activeGallerySlide) {
+        galleryTrack.classList.remove('is-blurring');
+        void galleryTrack.offsetWidth;
+        galleryTrack.classList.add('is-blurring');
+      }
+      activeGallerySlide = nextSlide;
+      galleryTrack.style.transform = `translateX(-${activeGallerySlide * 100}%)`;
+      gallerySlides.forEach((slide, slideIndex) => {
+        slide.setAttribute('aria-hidden', String(slideIndex !== activeGallerySlide));
+      });
+    }
+
+    galleryTrack.addEventListener('animationend', () => {
+      galleryTrack.classList.remove('is-blurring');
+    });
+
+    galleryViewport.addEventListener('pointerdown', (event) => {
+      touchStartX = event.clientX;
+    });
+    galleryViewport.addEventListener('pointerup', (event) => {
+      if (touchStartX === null) return;
+      const swipeDistance = event.clientX - touchStartX;
+      if (Math.abs(swipeDistance) > 40) {
+        showGallerySlide(activeGallerySlide + (swipeDistance < 0 ? 1 : -1));
+        window.clearInterval(galleryTimer);
+        if (!galleryPaused) {
+          galleryTimer = window.setInterval(() => showGallerySlide(activeGallerySlide + 1), 7000);
+        }
+      }
+      touchStartX = null;
+    });
+    galleryViewport.addEventListener('pointercancel', () => {
+      touchStartX = null;
+    });
+    showGallerySlide(0);
+    if (!galleryPaused && gallerySlides.length > 1) {
+      galleryTimer = window.setInterval(() => showGallerySlide(activeGallerySlide + 1), 7000);
+    }
 
     // Timeline cards animation (sequential)
     const timelineCards = document.querySelectorAll('.timeline-card');
