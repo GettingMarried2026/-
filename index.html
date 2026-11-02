@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>សិរីសួស្តីអាពាហ៍ពិពាហ៍</title>
+  <!-- Google Fonts for Khmer -->
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@700&family=Moul&family=Battambang&family=Noto+Sans+Khmer:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+    :root {
+      --maroon: #FDFBF7;
+      --gold: #D4AF37;
+      --cream: #FDFBF7;
+      --charcoal: #FDFBF7;
+      --shadow: 0 2px 16px rgba(34,34,34,0.08);
+    }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--maroon);
+      color: var(--charcoal);
+      font-family: 'Noto Sans Khmer', 'Battambang', Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      isolation: isolate;
+    }
+    body.intro-open {
+      overflow: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -12px;
+      background:
+        linear-gradient(rgba(89, 8, 15, 0.38), rgba(34, 20, 17, 0.48)),
+        url("IMG_3657.JPG") center 25% / cover no-repeat;
+      filter: blur(4px);
+      transform: scale(1.03);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .intro-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 28px 20px;
+      color: var(--cream);
+      text-align: center;
+      background: linear-gradient(rgba(73, 7, 13, 0.5), rgba(31, 16, 15, 0.62));
+      backdrop-filter: blur(2px);
+      transition: opacity 0.65s ease, visibility 0s linear 0.65s;
+    }
+    .intro-screen.is-opening {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .intro-content {
+      width: min(100%, 620px);
+      animation: introArrive 0.9s ease both;
+    }
+    .intro-eyebrow {
+      margin: 0 0 2rem;
+      color: var(--gold);
+      font-size: 2rem;
+    }
+    .intro-ornament {
+      width: 116px;
+      height: 1px;
+      margin: 0 auto 1.5rem;
+      background: var(--gold);
+      position: relative;
+    }
+    .intro-ornament::after {
+      content: "✦";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      padding: 0 10px;
+      color: var(--gold);
+      background: rgba(73, 7, 13, 0.8);
+      transform: translate(-50%, -50%);
+    }
+    .intro-title {
+      margin: 0 0 0.7rem;
+      color: var(--gold);
+      font-family: 'Moul', 'Kantumruy Pro', serif;
+      font-size: 1.65rem;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    .intro-names {
+      margin: 0.4rem 0 1rem;
+      font-family: 'Kantumruy Pro', 'Moul', serif;
+      font-size: 2rem;
+      line-height: 1.7;
+    }
+    .intro-date {
+      margin: 0 0 2rem;
+      color: rgba(253, 251, 247, 0.9);
+      line-height: 1.9;
+    }
+    .intro-open-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 52px;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--gold);
+      border-radius: 25px;
+      background: var(--gold);
+      color: var(--maroon);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .intro-open-button:hover {
+      background: #e2c45c;
+      transform: translateY(-2px);
+    }
+  
+    .intro-open-button svg {
+      width: 20px;
+      height: 20px;
+    }
+    @keyframes introArrive {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Decorative Kbach SVG border */
+    .kbach-divider {
+      width: 100%;
+      height: 32px;
+      background: none;
+      display: block;
+      margin: 2rem 0 1rem 0;
+    }
+    /* Hero Section */
+    .hero {
+      background: transparent;
+      color: var(--cream);
+      text-align: center;
+      padding: 3rem 1rem 2rem 1rem;
+      margin-bottom: -1px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero .kbach-top {
+      position: absolute;
+      top: 0; left: 0; width: 100%;
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    main:focus:not(:focus-visible) {
+      outline: none;
+    }
+    .hero h1 {
+      font-family: 'Moul', 'Kantumruy Pro', serif;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-shadow: 0 2px 8px #0002;
+    }
+    .hero .names {
+      font-family: 'Kantumruy Pro', 'Moul', serif;
+      font-size: 2.2rem;
+      margin: 0.5rem 0 0.5rem 0;
+      color: var(--cream);
+      letter-spacing: 1px;
+    }
+    .hero .date {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--gold);
+      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
+    }
+    .hero .venue {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: var(--cream);
+    }
+    .hero .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .btn {
+      background: var(--gold);
+      color: var(--maroon);
+      border: none;
+      border-radius: 24px;
+      padding: 0.7em 2em;
+      font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      outline: none;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .hero-invite-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 0.75em 1.6em;
+      background: linear-gradient(135deg, #f3d66f, var(--gold) 55%, #bb8c20);
+      box-shadow: 0 5px 18px rgba(34, 20, 17, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+      isolation: isolate;
+    }
+    .hero-invite-btn::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0 auto 0 -70%;
+      width: 45%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transform: skewX(-22deg);
+      animation: inviteShimmer 4s ease-in-out infinite;
+    }
+    .hero-invite-btn svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.2s ease;
+    }
+    .hero-invite-btn:hover {
+      background: linear-gradient(135deg, #f8df84, #e1bc4c 55%, #c99729);
+      box-shadow: 0 8px 22px rgba(34, 20, 17, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      transform: translateY(-2px);
+    }
+    .hero-invite-btn:hover svg {
+      transform: translateX(4px);
+    }
+   
+    @keyframes inviteShimmer {
+      0%, 65%, 100% { left: -70%; }
+      35% { left: 130%; }
+    }
+    .screen-sparkle {
+      position: fixed;
+      z-index: 3000;
+      left: var(--sparkle-x);
+      top: var(--sparkle-y);
+      color: var(--sparkle-color);
+      font-size: var(--sparkle-size);
+      line-height: 1;
+      pointer-events: none;
+      text-shadow: 0 0 10px rgba(255, 224, 128, 0.8);
+      will-change: transform, opacity;
+      animation: sparkleFly var(--sparkle-duration) cubic-bezier(0.2, 0.65, 0.25, 1) var(--sparkle-delay) both;
+    }
+    @keyframes sparkleFly {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.25) rotate(0deg);
+      }
+      12% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(20deg);
+      }
+      55% {
+        opacity: 1;
+        transform: translate(calc(-50% + var(--fly-mid-x)), calc(-50% + var(--fly-mid-y))) scale(1.3) rotate(var(--sparkle-mid-rotation));
+      }
+      to {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--fly-x)), calc(-50% + var(--fly-y))) scale(1) rotate(var(--sparkle-rotation));
+      }
+    }
+    /* Section Styles */
+    section {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      background: linear-gradient(135deg, rgba(253, 251, 247, 0.2), rgba(123, 17, 19, 0.12));
+      -webkit-backdrop-filter: blur(8px) saturate(110%);
+      backdrop-filter: blur(8px) saturate(110%);
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 18px;
+      box-shadow: 0 10px 32px rgba(34, 20, 17, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+      margin-bottom: 2rem;
+    }
+    section h2 {
+      font-family: 'Kantumruy Pro', 'Moul', serif;
+      color: var(--maroon);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    /* Blessings */
+    .blessings .parents {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .blessings .parent-block {
+      flex: 1 1 220px;
+      background: rgba(253, 251, 247, 0.28);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 175, 55, 0.48);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
+      color: var(--maroon);
+      box-shadow: 0 4px 16px rgba(83, 49, 18, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    }
+    .blessings .invitation-text {
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      margin-top: 1rem;
+      text-align: center;
+      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
+    }
+    /* Program Timeline */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    .program-date {
+      margin: -0.5rem 0 1rem;
+      color: var(--maroon);
+      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
+      text-align: center;
+    }
+    .timeline-card {
+      -webkit-backdrop-filter: blur(4px) saturate(110%);
+      backdrop-filter: blur(4px) saturate(110%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 5px solid var(--gold);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 4px 16px rgba(83, 49, 18, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    .timeline-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .timeline-time {
+      font-family: 'Kantumruy Pro', 'Moul', serif;
+      color: var(--maroon);
+      font-size: 1.1rem;
+      min-width: 70px;
+      text-align: right;
+    }
+    .timeline-desc {
+      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
+      color: var(--charcoal);
+      font-size: 1.05rem;
+    }
+    /* Venue & Map */
+    .venue-details {
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+    .venue-details strong {
+      color: var(--maroon);
+      font-family: 'Kantumruy Pro', 'Moul', serif;
+      font-size: 1.1rem;
+    }
+    .venue-map {
+      width: 100%;
+      height: 240px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 8px #d4af3722;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .venue-map iframe {
+      width: 100%; height: 100%; border: 0;
+    }
+    .copy-btn {
+      background: var(--maroon);
+      color: var(--gold);
+      border: none;
+      border-radius: 18px;
+      padding: 0.4em 1.2em;
+      font-size: 1rem;
+      margin-left: 0.5em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .countdown-block {
+      display: grid;
+      place-content: center;
+      width: 64px;
+      aspect-ratio: 1;
+      flex: 0 1 64px;
+      padding: 0.3em;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      box-shadow: 0 3px 12px rgba(20, 70, 145, 0.24);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      text-align: center;
+      min-width: 0;
+    }
+    .countdown-number {
+      font-family: 'Kantumruy Pro', 'Moul', serif;
+      font-size: 1.5rem;
+      color: var(--maroon);
+    }
+    .countdown-label {
+      font-size: 0.9rem;
+      color: var(--gold);
+      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
+    }
+    .countdown-block .countdown-number,
+    .countdown-block .countdown-label {
+      color: #fff;
+    }
+    .couple-portrait {
+      text-align: center;
+    }
+    .couple-portrait figure {
+      width: 100%;
+      margin: 0 auto;
+    }
+    .couple-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .couple-gallery img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center 38%;
+      border-radius: 14px;
+      box-shadow: 0 5px 16px rgba(30, 45, 70, 0.24);
+    }
+    .couple-portrait figcaption {
+      margin-top: 1rem;
+      color: var(--cream);
+      font-family: 'Kantumruy Pro', 'Moul', serif;
+      font-size: 1.2rem;
+    }
+    /* RSVP Form */
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .rsvp-form label {
+      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
+      color: var(--maroon);
+      font-size: 1rem;
+      margin-bottom: 0.2em;
+    }
+    .rsvp-form input, .rsvp-form textarea, .rsvp-form select {
+      padding: 0.6em;
+      border: 1.5px solid var(--gold);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #fff;
+      color: var(--charcoal);
+      resize: none;
+    }
+    .rsvp-form button {
+      margin-top: 0.5em;
+    }
+    /* Aba QR Modal */
+    .aba-modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background: rgba(34,34,34,0.45);
+      align-items: center; justify-content: center;
+      padding: 16px;
+    }
+    .aba-modal-bg.active {
+      display: flex;
+    }
+    .aba-modal {
+      background: #fff;
+      border-radius: 18px;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      box-shadow: 0 4px 32px #2225;
+      width: min(100%, 340px);
+      max-height: 100%;
+      overflow-y: auto;
+      text-align: center;
+      position: relative;
+      animation: fadeInUp 0.5s;
+    }
+    .aba-modal h3 {
+      font-family: 'Kantumruy Pro', 'Moul', serif;
+      color: var(--maroon);
+      margin-bottom: 1rem;
+    }
+    .aba-modal .qr-placeholder {
+      width: min(100%, 240px);
+      aspect-ratio: 1;
+      padding: 5px;
+      background: #fff;
+      border: 3px solid var(--gold);
+      border-radius: 16px;
+      margin: 0 auto 1rem auto;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .aba-modal .qr-placeholder img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 9px;
+    }
+    .aba-modal .bank-details {
+      font-size: 1rem;
+      color: var(--charcoal);
+      margin-bottom: 1rem;
+      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
+    }
+    .aba-modal .copy-btn {
+      margin: 0.5em 0 0 0;
+    }
+    .aba-modal .close-btn {
+      position: absolute;
+      top: 0.7em; right: 1em;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--maroon);
+      cursor: pointer;
+    }
+    /* Fade-in-up animation */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    /* Intersection Observer fade-in */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero {
+        padding: 3.25rem 1rem 1.75rem;
+      }
+      .hero h1 {
+        font-size: clamp(1.25rem, 5.5vw, 1.5rem);
+        line-height: 1.6;
+        letter-spacing: 3;
+      }
+      .hero .names {
+        font-size: clamp(1.15rem, 5vw, 1.3rem);
+        letter-spacing: 0;
+      }
+      .hero .hero-actions {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .btn {
+        padding: 0.7em 1.25em;
+        font-size: 1rem;
+      }
+      .hero-invite-btn {
+        min-height: 48px;
+        border-radius: 10px;
+      }
+      .intro-screen {
+        padding: 20px 16px;
+      }
+      .intro-title { font-size: 1.3rem; }
+      .intro-names { font-size: 1.45rem; }
+      section {
+        margin: 0 18px 1.25rem;
+        padding: 1.1rem 0.75rem;
+        border-radius: 14px;
+      }
+      section h2 {
+        font-size: 1.25rem;
+        letter-spacing: 0;
+        line-height: 1.65;
+      }
+      .blessings .invitation-text {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+      .timeline-card {
+        flex-direction: column;
+        gap: 0.35rem;
+        padding: 0.85rem;
+      }
+      .timeline-time {
+        min-width: 0;
+        text-align: left;
+      }
+      .venue-map {
+        height: clamp(160px, 55vw, 220px);
+      }
+      .countdown {
+        gap: 0.4rem;
+        margin: 1rem 0;
+      }
+      .countdown-block {
+        flex: 1 1 0;
+        width: auto;
+        max-width: 64px;
+        min-width: 0;
+        padding: 0.25em;
+      }
+      .countdown-number { font-size: 1.1rem; }
+      .countdown-label { font-size: 0.7rem; }
+      .couple-gallery { gap: 8px; }
+      .couple-gallery img { border-radius: 10px; }
+      .kbach-divider {
+        height: 24px;
+        margin: 1.25rem 0 0.75rem;
+      }
+      .aba-modal {
+        padding: 1.5rem 1rem 1rem;
+      }
+    }
+    @media (max-width: 360px) {
+      .hero .venue { font-size: 0.9rem; }
+      .intro-open-button { padding: 0.7rem 1rem; }
+      .countdown-number { font-size: 1.1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="intro-open">
+  <audio id="backgroundMusic" src="music.m4a" loop preload="auto"></audio>
+  <div class="intro-screen" id="introScreen" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <div class="intro-content">
+      <p class="intro-eyebrow">សិរីមង្គលអាពាហ៍ពិពាហ៍</p>
+      <div class="intro-ornament" aria-hidden="true"></div>
+      <p class="intro-names">សុខ សុភា <span aria-hidden="true">&amp;</span> ចាន់ ស្រីនាង</p>
+      <div class="hero-actions">
+        <button class="btn hero-invite-btn" id="openInvitation" type="button">
+          <span>បើកការអញ្ជើញ</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Hero Section -->
+  <div class="hero">
+    <svg class="kbach-top" height="32" viewBox="0 0 1440 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0,32 Q360,0 720,32 Q1080,64 1440,32 L1440,0 L0,0 Z" fill="#D4AF37" opacity="0.18"/>
+      <path d="M0,32 Q360,16 720,32 Q1080,48 1440,32" stroke="#D4AF37" stroke-width="2" fill="none"/>
+    </svg>
+    <div class="hero-content">
+      <h1>សិរីមង្គលអាពាហ៍ពិពាហ៍</h1>
+      <div class="names">សុខ សុភា &nbsp;🤍 &nbsp; ចាន់ ស្រីនាង</div>
+      <div class="date">
+        ថ្ងៃសៅរ៍ ទី២៨ ខែវិច្ឆិកា ឆ្នាំច សំរឹទ្ធិស័ក ព.ស.២៥៦៩<br>
+      </div>
+    </div>
+  </div>
+
+    <!-- Blessings Section -->
+    <section class="blessings fade-in-up">
+      <h2>យើងខ្ញុំមានកិត្តិយសសូមគោរពអញ្ជើញ</h2>
+      <div class="invitation-text">សម្តេច ទ្រង់ ឯកឧត្តម លោកជំទាវ លោកអ្នកឧកញ៉ា អ្នកឧកញ៉ា ឧកញ៉ា លោក លោកស្រី អ្នកនាង កញា ព្រមទាំងប្រិយមិត្តអញ្ជើញចូលរួមជាអធិបតី និងជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធិពរជ័យសិរីសួស្តី ជ័យមង្គល ក្នុងពិធីអាពាហ៍ពិពាហ៍ របស់យើងខ្ញុំទាំងពីរ។<br>
+      </div>
+    </section>
+
+    <svg class="kbach-divider" height="32" viewBox="0 0 1440 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0,16 Q360,32 720,16 Q1080,0 1440,16" stroke="#D4AF37" stroke-width="2" fill="none"/>
+    </svg>
+
+    <!-- Program Timeline -->
+    <section class="program fade-in-up">
+      <h2>របៀបវារៈកម្មវិធី</h2>
+      <p class="program-date">ថ្ងៃសៅរ៍ ទី២៨ ខែវិច្ឆិកា ឆ្នាំ២០២៦</p>
+      <div class="timeline" id="timeline">
+        <div class="timeline-card">
+          <div class="timeline-time">៦:៣០ ព្រឹក</div>
+          <div class="timeline-desc">ជួបជុំភ្ញៀវកិត្តិយសដើម្បីរៀបចំពិធីហែលជំនូន</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-time">៧:០០ ព្រឹក</div>
+          <div class="timeline-desc">ហែលជំនូន ជូនផ្កាស្លានិយាយជើងការនិងជូនបណ្តាការ</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-time">៨:០០ ព្រឹក</div>
+          <div class="timeline-desc">ពិធីបំពាក់ជញ្ជៀននិងពិសាស្លា</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-time">៩:០០ ព្រឹក</div>
+          <div class="timeline-desc">ពិធីសូត្រមន្តចម្រើនព្រះបរិត្ត</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-time">១០:០០ ព្រឹក</div>
+          <div class="timeline-desc">ពិធីកាត់សក់បង្កក់សិរី</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-time">១១:០០ ព្រឹក</div>
+          <div class="timeline-desc">បើកវាំងនន បង្វិលពពិល និងផ្ទឹមចងដៃ</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-time">១២:០០ ថ្ងៃត្រង់</div>
+          <div class="timeline-desc">អញ្ជើញភ្ញៀវកិត្តិយសពិសាអាហារថ្ងៃត្រង់</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-time">៥:០០ ល្ងាច</div>
+          <div class="timeline-desc">ទទួលបដិសណ្ឋារកិច្ចភ្ញៀវកិត្តិយសពិសាអាហារដោយមេត្រីភាព</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="couple-portrait fade-in-up" aria-label="រូបថតកូនកំលោះ និងកូនក្រមុំ">
+      <h2>កម្រងរូបភាព</h2>
+      <figure>
+        <div class="couple-gallery">
+          <img src="imag-1.png" alt="" aria-hidden="true">
+          <img src="imag-3.png" alt="" aria-hidden="true">
+          <img src="imag-2.png" alt="" aria-hidden="true">
+          <img src="imag-5.png" alt="" aria-hidden="true">
+          <img src="imag-4.png" alt="" aria-hidden="true">
+          <img src="imag-6.png" alt="" aria-hidden="true">
+        </div>
+      </figure>
+    </section>
+
+    <main id="main" tabindex="-1">
+    <!-- Countdown Timer -->
+    <section class="countdown-section fade-in-up">
+      <h2>រាប់ថយក្រោយដល់ពិធីពិសាភោជនាហារ</h2>
+      <div class="countdown" id="countdown">
+        <div class="countdown-block">
+          <div class="countdown-number" id="days">00</div>
+          <div class="countdown-label">ថ្ងៃ</div>
+        </div>
+        <div class="countdown-block">
+          <div class="countdown-number" id="hours">00</div>
+          <div class="countdown-label">ម៉ោង</div>
+        </div>
+        <div class="countdown-block">
+          <div class="countdown-number" id="minutes">00</div>
+          <div class="countdown-label">នាទី</div>
+        </div>
+        <div class="countdown-block">
+          <div class="countdown-number" id="seconds">00</div>
+          <div class="countdown-label">វិនាទី</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venue & Map -->
+    <section class="venue fade-in-up">
+      <h2>ទីតាំងកម្មវិធី</h2>
+      <div class="venue-details">
+        <strong>សាលាអាពាហ៍ពិពាហ៍ ភ្នំពេញ</strong><br>
+        Building B, Street 2004, Phnom Penh<br>
+        <button class="copy-btn" onclick="copyText('Building B, Street 2004, Phnom Penh')">ចម្លងអាសយដ្ឋាន</button>
+      </div>
+      <div class="venue-map">
+        <!-- Replace src with your actual Google Maps embed link -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.927123456789!2d104.88888888888889!3d11.555555555555555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31095123456789ab%3A0xabcdefabcdefabcd!2sPhnom%20Penh%20Wedding%20Hall!5e0!3m2!1sen!2skh!4v1660000000000!5m2!1sen!2skh" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Wedding Venue Map"></iframe>
+      </div>
+      <a class="btn" href="https://maps.google.com/?q=Phnom+Penh+Wedding+Hall+Building+B+Street+2004" target="_blank" rel="noopener">Get Directions</a>
+    </section>
+
+    <svg class="kbach-divider" height="32" viewBox="0 0 1440 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0,16 Q360,32 720,16 Q1080,0 1440,16" stroke="#D4AF37" stroke-width="2" fill="none"/>
+    </svg>
+
+    <!-- ABA Bank QR Section -->
+    <section class="aba fade-in-up" style="text-align:center;">
+      <h2>ចំណងដៃឌីជីថល (ABA QR)</h2>
+      <button class="btn" onclick="toggleAbaModal(true)">បង្ហាញ KHQR</button>
+    </section>
+  </main>
+
+  <!-- ABA Modal -->
+  <div class="aba-modal-bg" id="abaModalBg" onclick="toggleAbaModal(false)">
+    <div class="aba-modal" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="toggleAbaModal(false)" aria-label="Close">&times;</button>
+      <h3>ABA KHQR</h3>
+      <div class="qr-placeholder">
+        <img src="IMG_3660.JPG" alt="ABA KHQR ស្កេនដើម្បីផ្ញើចំណងដៃ">
+      </div>
+      <div class="bank-details">
+        ឈ្មោះគណនី៖ សុខ សុភា<br>
+        ABA: 000123456<br>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const introScreen = document.getElementById('introScreen');
+    const openInvitation = document.getElementById('openInvitation');
+    const invitationMain = document.getElementById('main');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    openInvitation.addEventListener('click', () => {
+      backgroundMusic.volume = 0.5;
+      backgroundMusic.play().catch(() => {});
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduceMotion) {
+        const buttonRect = openInvitation.getBoundingClientRect();
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const startX = buttonRect.left + buttonRect.width / 2;
+        const startY = buttonRect.top + buttonRect.height / 2;
+        const columns = screenWidth < 600 ? 6 : 10;
+        const rows = screenWidth < 600 ? 7 : 8;
+        const particleCount = columns * rows;
+        const symbols = ['✦', '✧', '·'];
+        for (let i = 0; i < particleCount; i++) {
+          const column = i % columns;
+          const row = Math.floor(i / columns);
+          const cellWidth = screenWidth / columns;
+          const cellHeight = screenHeight / rows;
+          const sparkle = document.createElement('span');
+          sparkle.className = 'screen-sparkle';
+          sparkle.setAttribute('aria-hidden', 'true');
+          sparkle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+          const targetX = Math.min(screenWidth - 12, Math.max(12,
+            (column + 0.5) * cellWidth + (Math.random() - 0.5) * cellWidth * 0.55
+          ));
+          const targetY = Math.min(screenHeight - 12, Math.max(12,
+            (row + 0.5) * cellHeight + (Math.random() - 0.5) * cellHeight * 0.55
+          ));
+          const flyX = targetX - startX;
+          const flyY = targetY - startY;
+          const rotation = Math.random() * 360 - 180;
+          const arc = (Math.random() - 0.5) * Math.min(screenWidth, screenHeight) * 0.18;
+          sparkle.style.setProperty('--sparkle-x', `${startX}px`);
+          sparkle.style.setProperty('--sparkle-y', `${startY}px`);
+          sparkle.style.setProperty('--fly-x', `${flyX}px`);
+          sparkle.style.setProperty('--fly-y', `${flyY}px`);
+          sparkle.style.setProperty('--fly-mid-x', `${flyX * 0.5 - Math.sign(flyY) * arc}px`);
+          sparkle.style.setProperty('--fly-mid-y', `${flyY * 0.5 + Math.sign(flyX) * arc}px`);
+          sparkle.style.setProperty('--sparkle-size', `${9 + Math.random() * 12}px`);
+          sparkle.style.setProperty('--sparkle-duration', `${1700 + Math.random() * 900}ms`);
+          sparkle.style.setProperty('--sparkle-delay', `${Math.random() * 420}ms`);
+          sparkle.style.setProperty('--sparkle-rotation', `${rotation}deg`);
+          sparkle.style.setProperty('--sparkle-mid-rotation', `${rotation * 0.58}deg`);
+          sparkle.style.setProperty('--sparkle-color', Math.random() > 0.35 ? '#f3d66f' : '#fdfbf7');
+          sparkle.addEventListener('animationend', () => sparkle.remove(), { once: true });
+          document.body.appendChild(sparkle);
+        }
+      }
+      introScreen.classList.add('is-opening');
+      introScreen.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('intro-open');
+      window.setTimeout(() => {
+        introScreen.remove();
+        invitationMain.focus({ preventScroll: true });
+        window.scrollTo({
+          top: 0,
+          behavior: reduceMotion ? 'auto' : 'smooth'
+        });
+      }, 650);
+    });
+    openInvitation.focus({ preventScroll: true });
+    introScreen.addEventListener('keydown', (event) => {
+      if (event.key === 'Tab') {
+        event.preventDefault();
+        openInvitation.focus();
+      }
+    });
+
+    // Intersection Observer for fade-in-up
+    const fadeEls = document.querySelectorAll('.fade-in-up, .timeline-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Timeline cards animation (sequential)
+    const timelineCards = document.querySelectorAll('.timeline-card');
+    timelineCards.forEach((card, i) => {
+      observer.observe(card);
+      card.style.transitionDelay = (i * 0.15) + 's';
+    });
+
+    // Countdown Timer
+    // Set your wedding reception datetime here (YYYY-MM-DDTHH:MM:SS)
+    const targetDate = new Date('2026-11-28T17:00:00+07:00');
+    function updateCountdown() {
+      const now = new Date();
+      let diff = Math.max(0, targetDate - now);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+      const minutes = Math.floor(diff / (1000 * 60));
+      diff -= minutes * (1000 * 60);
+      const seconds = Math.floor(diff / 1000);
+      document.getElementById('days').textContent = String(days).padStart(2, '0');
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // RSVP Form
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('guestName').value.trim();
+      const count = document.getElementById('guestCount').value;
+      const msg = document.getElementById('message').value.trim();
+      alert(`សូមអរគុណចំពោះការបញ្ជាក់!\n\nឈ្មោះ៖ ${name}\nចំនួន៖ ${count}\nសារជូនពរ៖ ${msg ? msg : '—'}`);
+      this.reset();
+    });
+
+    // ABA Modal
+    function toggleAbaModal(show) {
+      const modal = document.getElementById('abaModalBg');
+      if (show) {
+        modal.classList.add('active');
+      } else {
+        modal.classList.remove('active');
+      }
+    }
+
+    window.toggleAbaModal = toggleAbaModal;
+    window.copyText = copyText;
+  </script>
+</body>
+</html>
