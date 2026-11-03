@@ -33,6 +33,25 @@
 .music-toggle:focus-visible{outline:2px solid var(--deep);outline-offset:3px}
 .music-status{position:fixed;right:18px;bottom:64px;z-index:19;max-width:min(340px,calc(100vw - 36px));padding:8px 12px;border-radius:12px;background:#fafbefed;color:var(--deep);font-size:12px;box-shadow:0 6px 18px #34401c20}
 .music-toggle[hidden],.music-status[hidden]{display:none}
+.snow-layer{position:fixed;inset:0 auto 0 50%;z-index:17;width:min(100%,760px);overflow:hidden;transform:translateX(-50%);pointer-events:none;visibility:hidden}
+.invitation-started .snow-layer{visibility:visible}
+.snowflake{position:absolute;top:-8px;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 5px #fff;opacity:.72;animation:snowFall 9s linear infinite}
+.snowflake:nth-child(1){left:4%;animation-delay:-2s;animation-duration:8s}
+.snowflake:nth-child(2){left:10%;width:3px;height:3px;animation-delay:-6s;animation-duration:11s}
+.snowflake:nth-child(3){left:16%;animation-delay:-4s;animation-duration:10s}
+.snowflake:nth-child(4){left:22%;width:3px;height:3px;animation-delay:-8s;animation-duration:9s}
+.snowflake:nth-child(5){left:28%;animation-delay:-1s;animation-duration:12s}
+.snowflake:nth-child(6){left:34%;width:3px;height:3px;animation-delay:-7s;animation-duration:8.5s}
+.snowflake:nth-child(7){left:40%;animation-delay:-5s;animation-duration:10.5s}
+.snowflake:nth-child(8){left:46%;width:3px;height:3px;animation-delay:-3s;animation-duration:9.5s}
+.snowflake:nth-child(9){left:52%;animation-delay:-9s;animation-duration:11.5s}
+.snowflake:nth-child(10){left:58%;width:3px;height:3px;animation-delay:-4s;animation-duration:8s}
+.snowflake:nth-child(11){left:64%;animation-delay:-6s;animation-duration:10s}
+.snowflake:nth-child(12){left:70%;width:3px;height:3px;animation-delay:-2s;animation-duration:12s}
+.snowflake:nth-child(13){left:76%;animation-delay:-8s;animation-duration:9s}
+.snowflake:nth-child(14){left:82%;width:3px;height:3px;animation-delay:-5s;animation-duration:11s}
+.snowflake:nth-child(15){left:88%;animation-delay:-3s;animation-duration:8.5s}
+.snowflake:nth-child(16){left:94%;width:3px;height:3px;animation-delay:-10s;animation-duration:10.5s}
 .butterfly-layer{position:fixed;top:0;bottom:0;left:50%;z-index:18;width:min(100%,760px);overflow:hidden;transform:translateX(-50%);pointer-events:none;visibility:hidden}
 .invitation-started .butterfly-layer{visibility:visible}
 .floating-butterfly{position:absolute;left:-18%;display:block;width:100px;height:auto;opacity:0;animation:butterflyFlight 26s ease-in-out infinite}
@@ -87,6 +106,7 @@
 @keyframes gateCardOut{to{opacity:0;transform:translateY(-12px) scale(1.025)}}
 @keyframes heartGlow{0%,100%{filter:drop-shadow(0 5px 8px #56633325);scale:1}50%{filter:drop-shadow(0 7px 12px #71852d48);scale:1.06}}
 @keyframes leafFloat{from{translate:0 -5px}to{translate:0 9px}}
+@keyframes snowFall{0%{top:-8px;translate:0 0;opacity:0}10%{opacity:.72}50%{translate:12px 0}90%{opacity:.72}100%{top:100%;translate:-8px 0;opacity:0}}
 @keyframes butterflyFlight{0%{left:-12%;opacity:0;transform:translateY(12px) rotate(-12deg)}10%,38%{opacity:.9}25%{transform:translateY(-15px) rotate(10deg)}48%{left:108%;opacity:0;transform:translateY(12px) rotate(-8deg)}52%{left:108%;opacity:0;transform:translateY(-10px) rotate(10deg)}62%,90%{opacity:.9}75%{transform:translateY(14px) rotate(-10deg)}100%{left:-12%;opacity:0;transform:translateY(-12px) rotate(12deg)}}
 @keyframes buttonShine{0%,62%{left:-45%}82%,100%{left:125%}}
 @keyframes heroCardIn{from{opacity:0;transform:translateY(20px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -147,6 +167,16 @@ section{position:relative;z-index:1;padding:40px 26px;text-align:center}.eyebrow
 </style>
 </head>
 <body>
+<div class="snow-layer" aria-hidden="true">
+  <span class="snowflake"></span><span class="snowflake"></span>
+  <span class="snowflake"></span><span class="snowflake"></span>
+  <span class="snowflake"></span><span class="snowflake"></span>
+  <span class="snowflake"></span><span class="snowflake"></span>
+  <span class="snowflake"></span><span class="snowflake"></span>
+  <span class="snowflake"></span><span class="snowflake"></span>
+  <span class="snowflake"></span><span class="snowflake"></span>
+  <span class="snowflake"></span><span class="snowflake"></span>
+</div>
 <div class="butterfly-layer" aria-hidden="true">
   <img class="floating-butterfly" src="1654807.gif" alt="">
   <img class="floating-butterfly" src="94c253.gif" alt="">
