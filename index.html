@@ -20,7 +20,7 @@
 .gate-leaf{position:absolute;z-index:0;width:130px;height:auto;pointer-events:none;opacity:.72}
 .gate-leaf-top{top:-43px;left:-42px;transform:rotate(5deg)}
 .gate-leaf-bottom{right:-48px;bottom:-38px;width:145px;transform:rotate(180deg)}
-.gate-heart{display:grid;place-items:center;width:44px;height:44px;margin-bottom:8px;border-radius:50%;background:var(--green);color:white;font-size:23px;box-shadow:0 5px 16px #56633355}
+.gate-heart{display:grid;place-items:center;width:76px;height:76px;margin-bottom:8px;filter:drop-shadow(0 5px 8px #56633335)}
 .gate-names{margin:0;color:var(--green);font-family:'Noto Serif Khmer',serif;font-size:clamp(23px,6vw,29px);font-weight:500;line-height:1.75}
 .gate-amp{margin:-1px 0;color:#9aa46a;font-family:serif;font-size:22px;font-style:italic}
 .gate-divider{width:72px;margin:9px 0 7px;border:0;border-top:1px solid #bdc99a}
@@ -33,6 +33,13 @@
 .music-toggle:focus-visible{outline:2px solid var(--deep);outline-offset:3px}
 .music-status{position:fixed;right:18px;bottom:64px;z-index:19;max-width:min(340px,calc(100vw - 36px));padding:8px 12px;border-radius:12px;background:#fafbefed;color:var(--deep);font-size:12px;box-shadow:0 6px 18px #34401c20}
 .music-toggle[hidden],.music-status[hidden]{display:none}
+.butterfly-layer{position:fixed;top:0;bottom:0;left:50%;z-index:18;width:min(100%,760px);overflow:hidden;transform:translateX(-50%);pointer-events:none;visibility:hidden}
+.invitation-started .butterfly-layer{visibility:visible}
+.floating-butterfly{position:absolute;left:-18%;display:block;width:100px;height:auto;opacity:0;animation:butterflyFlight 26s ease-in-out infinite}
+.floating-butterfly:nth-child(1){top:14%;width:96px;animation-delay:-2s}
+.floating-butterfly:nth-child(2){top:36%;width:120px;animation-delay:-15s;animation-duration:30s}
+.floating-butterfly:nth-child(3){top:61%;width:104px;animation-delay:-9s;animation-duration:27s}
+.floating-butterfly:nth-child(4){top:83%;width:116px;animation-delay:-22s;animation-duration:32s}
 .page{visibility:hidden}
 .invitation-started .page{visibility:visible}
 .invitation-started .invitation-gate{opacity:0;visibility:hidden;pointer-events:none}
@@ -60,7 +67,7 @@
 .invitation-started .hero .leaf-decoration{animation:leafFloat 9s ease-in-out infinite alternate}
 .invitation-started .hero .leaf-hero-right{animation-delay:-4s}
 .invitation-started .hero .leaf-hero-bottom{animation-delay:-2s}
-.invitation-started .gallery-track img{transition-duration:.8s}
+.invitation-started .gallery-track img{transition-duration:.70s}
 .gift-trigger{display:block;width:min(100%,220px);margin:18px auto;padding:0;border:0;background:transparent;cursor:pointer}
 .gift-trigger:focus-visible{outline:2px solid var(--green);outline-offset:6px;border-radius:12px}
 .gift{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 18px #34401c18);animation:giftFloat 5s ease-in-out infinite}
@@ -78,8 +85,9 @@
 @keyframes gateCardIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes gateContentIn{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
 @keyframes gateCardOut{to{opacity:0;transform:translateY(-12px) scale(1.025)}}
-@keyframes heartGlow{0%,100%{box-shadow:0 5px 16px #56633345;scale:1}50%{box-shadow:0 7px 23px #71852d72;scale:1.06}}
+@keyframes heartGlow{0%,100%{filter:drop-shadow(0 5px 8px #56633325);scale:1}50%{filter:drop-shadow(0 7px 12px #71852d48);scale:1.06}}
 @keyframes leafFloat{from{translate:0 -5px}to{translate:0 9px}}
+@keyframes butterflyFlight{0%{left:-12%;opacity:0;transform:translateY(12px) rotate(-12deg)}10%,38%{opacity:.9}25%{transform:translateY(-15px) rotate(10deg)}48%{left:108%;opacity:0;transform:translateY(12px) rotate(-8deg)}52%{left:108%;opacity:0;transform:translateY(-10px) rotate(10deg)}62%,90%{opacity:.9}75%{transform:translateY(14px) rotate(-10deg)}100%{left:-12%;opacity:0;transform:translateY(-12px) rotate(12deg)}}
 @keyframes buttonShine{0%,62%{left:-45%}82%,100%{left:125%}}
 @keyframes heroCardIn{from{opacity:0;transform:translateY(20px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes giftFloat{0%,100%{translate:0 0}50%{translate:0 -7px}}
@@ -139,16 +147,23 @@ section{position:relative;z-index:1;padding:40px 26px;text-align:center}.eyebrow
 </style>
 </head>
 <body>
+<div class="butterfly-layer" aria-hidden="true">
+  <img class="floating-butterfly" src="1654807.gif" alt="">
+  <img class="floating-butterfly" src="94c253.gif" alt="">
+  <img class="floating-butterfly" src="1654807.gif" alt="">
+  <img class="floating-butterfly" src="94c253.gif" alt="">
+  <img class="floating-butterfly" src="f31ef3c8939.gif" alt="">
+</div>
 <div class="invitation-gate" id="invitationGate">
   <div class="gate-card">
     <img class="gate-leaf gate-leaf-top" src="leaf1-background.png" alt="" aria-hidden="true">
     <img class="gate-leaf gate-leaf-bottom" src="leaf4-decoration.png" alt="" aria-hidden="true">
-    <div class="gate-heart" aria-hidden="true">♥</div>
+    <img class="gate-heart" src="love.gif" alt="" aria-hidden="true">
     <h1 class="gate-names">រស្មី</h1>
     <div class="gate-amp" aria-hidden="true">&</div>
-    <h2 class="gate-names">ដារ៉ា</h2>
+    <h2 class="gate-names">ចន្ធី</h2>
     <hr class="gate-divider">
-    <p class="gate-date">១៩ ធ្នូ ២០២៧</p>
+    <p class="gate-date">១១ មករា ២០២៧</p>
     <p class="gate-message">សូមអញ្ជើញចូលរួមអបអរសាទរថ្ងៃពិសេសរបស់យើង</p>
     <button class="gate-open" id="openInvitation" type="button">ចុចបើកសំបុត្រ</button>
   </div>
@@ -163,9 +178,9 @@ section{position:relative;z-index:1;padding:40px 26px;text-align:center}.eyebrow
     <div class="hero-card">
       <div class="eyebrow"></div>
       <h1>រស្មី</h1>
-      <div class="amp">&</div>
-      <h2>ដារ៉ា</h2>
-      <div class="cover-date">19 · 12 · 2027</div>
+    <img class="gate-heart" src="love.gif" alt="" aria-hidden="true">
+      <h2>ចន្ធី</h2>
+      <div class="cover-date">11 · 01 · 2027</div>
     </div>
   </section>
 
@@ -177,12 +192,12 @@ section{position:relative;z-index:1;padding:40px 26px;text-align:center}.eyebrow
       <p class="intro">យើងខ្ញុំមានកិត្តិយសសូមគោរពអញ្ជើញ លោក លោកស្រី អ្នកនាងកញ្ញា អញ្ជើញចូលរួមជាអធិបតី និងជាសាក្សីក្នុងពិធីមង្គលការរបស់យើងខ្ញុំ។</p>
       <div class="two-col">
         <div><div class="label">កូនប្រុស</div><div class="value khmer-title">ប៉ាន់ រស្មី</div></div>
-        <div><div class="label">កូនស្រី</div><div class="value khmer-title">ដារ៉ា</div></div>
+        <div><div class="label">កូនស្រី</div><div class="value khmer-title">កុសល់ ចន្ធី</div></div>
       </div>
     </div>
     <p class="intro">សូមអញ្ជើញចូលរួមអបអរសាទរ និងចែករំលែកក្ដីស្រឡាញ់ក្នុងថ្ងៃដ៏ពិសេសរបស់យើង។</p>
-    <div class="date-big">19 <small>ធ្នូ · ២០២៧</small></div>
-    <div class="eyebrow">ថ្ងៃអាទិត្យ · 5:00 PM</div>
+    <div class="date-big">11 <small>មករា · ២០២៧</small></div>
+    <div class="eyebrow">ថ្ងៃចន្ទ · 5:00 PM</div>
   </section>
 
   <section>
@@ -191,32 +206,35 @@ section{position:relative;z-index:1;padding:40px 26px;text-align:center}.eyebrow
     <div class="gallery" id="momentGallery" role="region" aria-roledescription="carousel" aria-label="Our moments">
       <div class="gallery-counter" aria-live="polite" aria-atomic="true"></div>
       <div class="gallery-track">
-        <img src="imag-1.png" alt="Wedding memory 1">
+        <img src="imag-5.png" alt="Wedding memory 1">
         <img src="imag-2.png" alt="Wedding memory 2">
         <img src="imag-3.png" alt="Wedding memory 3">
         <img src="imag-4.png" alt="Wedding memory 4">
-        <img src="imag-5.png" alt="Wedding memory 5">
-        <img src="imag-6.png" alt="Wedding memory 6">
+        <img src="imag-6.png" alt="Wedding memory 1">
+        <img src="imag-7.png" alt="Wedding memory 2">
+        <img src="imag-8.png" alt="Wedding memory 3">
+        <img src="imag-1.png" alt="Wedding memory 4">
       </div>
       <button class="gallery-control previous" type="button" aria-label="Previous photo">‹</button>
       <button class="gallery-control next" type="button" aria-label="Next photo">›</button>
     </div>
     <div class="gallery-dots" aria-label="Choose a photo"></div>
-    <div class="photo-caption">ថ្ងៃដែលគួរចងចាំ · 2027</div>
+    <div class="photo-caption">ថ្ងៃដែលគួរចងចាំ · ១១ មករា ២០២៧</div>
   </section>
 
   <section>
     <div class="eyebrow">កត់ចំណាំថ្ងៃនេះទុក</div><h2 class="khmer-title">កាលបរិច្ឆេទពិធីមង្គលការ</h2>
-    <div class="date-big">១៩ <small>ខៃធ្នូ  2027</small></div>
+    <div class="date-big">១១ <small>មករា  2027</small></div>
     <div class="calendar">
-      <div class="month">ខែធ្នូ   - 2027</div>
+      <div class="month">ខែមករា   - 2027</div>
       <div class="days"><span>អា</span><span>ច</span><span>អ</span><span>ពុ</span><span>ព្រ</span><span>សុ</span><span>សៅ</span></div>
       <div class="dates">
-        <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
-        <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
-        <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
-        <span class="chosen">19 ♥</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
-        <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span>1</span><span>2</span>
+        <span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+        <span>10</span><span class="chosen">11💕</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span>
+        <span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span>
+        <span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span>
+        <span>31</span>
       </div>
     </div>
   </section>
@@ -358,7 +376,7 @@ function showMoment(index){
 }
 function restartMomentTimer(){
   window.clearInterval(momentTimer);
-  if(document.body.classList.contains('invitation-started')&&!reducedMotion) momentTimer=window.setInterval(()=>showMoment(activeMoment+1),5000);
+  if(document.body.classList.contains('invitation-started')&&!reducedMotion) momentTimer=window.setInterval(()=>showMoment(activeMoment+1),3000);
 }
 momentGallery.querySelector('.previous').addEventListener('click',()=>{showMoment(activeMoment-1);restartMomentTimer()});
 momentGallery.querySelector('.next').addEventListener('click',()=>{showMoment(activeMoment+1);restartMomentTimer()});
