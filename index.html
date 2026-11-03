@@ -1,1064 +1,405 @@
 <!DOCTYPE html>
 <html lang="km">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>សិរីសួស្តីអាពាហ៍ពិពាហ៍</title>
-  <!-- Google Fonts for Khmer -->
-  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@700&family=Moul&family=Battambang&family=Noto+Sans+Khmer:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-    :root {
-      --maroon: #FDFBF7;
-      --gold: #D4AF37;
-      --cream: #FDFBF7;
-      --charcoal: #FDFBF7;
-      --shadow: 0 2px 16px rgba(34,34,34,0.08);
-    }
-    html, body {
-      margin: 0; padding: 0;
-      background: var(--maroon);
-      color: var(--charcoal);
-      font-family: 'Noto Sans Khmer', 'Battambang', Arial, sans-serif;
-      scroll-behavior: smooth;
-    }
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      isolation: isolate;
-    }
-    body.intro-open {
-      overflow: hidden;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: -12px;
-      background:
-        linear-gradient(rgba(89, 8, 15, 0.38), rgba(34, 20, 17, 0.48)),
-        url("IMG_3657.JPG") center 25% / cover no-repeat;
-      filter: blur(4px);
-      transform: scale(1.03);
-      z-index: -1;
-      pointer-events: none;
-    }
-    .intro-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      display: grid;
-      place-items: center;
-      min-height: 100vh;
-      min-height: 100svh;
-      padding: 28px 20px;
-      color: var(--cream);
-      text-align: center;
-      background: linear-gradient(rgba(73, 7, 13, 0.5), rgba(31, 16, 15, 0.62));
-      backdrop-filter: blur(2px);
-      transition: opacity 0.65s ease, visibility 0s linear 0.65s;
-    }
-    .intro-screen.is-opening {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .intro-content {
-      width: min(100%, 620px);
-      animation: introArrive 0.9s ease both;
-    }
-    .intro-eyebrow {
-      margin: 0 0 2rem;
-      color: var(--gold);
-      font-size: 2rem;
-    }
-    .intro-ornament {
-      width: 116px;
-      height: 1px;
-      margin: 0 auto 1.5rem;
-      background: var(--gold);
-      position: relative;
-    }
-    .intro-ornament::after {
-      content: "✦";
-      position: absolute;
-      inset: 50% auto auto 50%;
-      padding: 0 10px;
-      color: var(--gold);
-      background: rgba(73, 7, 13, 0.8);
-      transform: translate(-50%, -50%);
-    }
-    .intro-title {
-      margin: 0 0 0.7rem;
-      color: var(--gold);
-      font-family: 'Moul', 'Kantumruy Pro', serif;
-      font-size: 1.65rem;
-      font-weight: 400;
-      line-height: 1.7;
-    }
-    .intro-names {
-      margin: 0.4rem 0 1rem;
-      font-family: 'Kantumruy Pro', 'Moul', serif;
-      font-size: 2rem;
-      line-height: 1.7;
-    }
-    .intro-date {
-      margin: 0 0 2rem;
-      color: rgba(253, 251, 247, 0.9);
-      line-height: 1.9;
-    }
-    .intro-open-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      min-height: 52px;
-      padding: 0.75rem 1.5rem;
-      border: 1px solid var(--gold);
-      border-radius: 25px;
-      background: var(--gold);
-      color: var(--maroon);
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-    .intro-open-button:hover {
-      background: #e2c45c;
-      transform: translateY(-2px);
-    }
-  
-    .intro-open-button svg {
-      width: 20px;
-      height: 20px;
-    }
-    @keyframes introArrive {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    /* Decorative Kbach SVG border */
-    .kbach-divider {
-      width: 100%;
-      height: 32px;
-      background: none;
-      display: block;
-      margin: 2rem 0 1rem 0;
-    }
-    /* Hero Section */
-    .hero {
-      background: transparent;
-      color: var(--cream);
-      text-align: center;
-      padding: 3rem 1rem 2rem 1rem;
-      margin-bottom: -1px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-    .hero .kbach-top {
-      position: absolute;
-      top: 0; left: 0; width: 100%;
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    main:focus:not(:focus-visible) {
-      outline: none;
-    }
-    .hero h1 {
-      font-family: 'Moul', 'Kantumruy Pro', serif;
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 2px;
-      color: var(--gold);
-      text-shadow: 0 2px 8px #0002;
-    }
-    .hero .names {
-      font-family: 'Kantumruy Pro', 'Moul', serif;
-      font-size: 2.2rem;
-      margin: 0.5rem 0 0.5rem 0;
-      color: var(--cream);
-      letter-spacing: 1px;
-    }
-    .hero .date {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: var(--gold);
-      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
-    }
-    .hero .venue {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-      color: var(--cream);
-    }
-    .hero .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    .btn {
-      background: var(--gold);
-      color: var(--maroon);
-      border: none;
-      border-radius: 24px;
-      padding: 0.7em 2em;
-      font-size: 1.1rem;
-      font-family: inherit;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-      transition: background 0.2s, color 0.2s, transform 0.2s;
-      outline: none;
-    }
-    .btn:active {
-      transform: scale(0.97);
-    }
-    .hero-invite-btn {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.65rem;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      border-radius: 12px;
-      padding: 0.75em 1.6em;
-      background: linear-gradient(135deg, #f3d66f, var(--gold) 55%, #bb8c20);
-      box-shadow: 0 5px 18px rgba(34, 20, 17, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.65);
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
-      isolation: isolate;
-    }
-    .hero-invite-btn::before {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      inset: 0 auto 0 -70%;
-      width: 45%;
-      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-      transform: skewX(-22deg);
-      animation: inviteShimmer 4s ease-in-out infinite;
-    }
-    .hero-invite-btn svg {
-      width: 18px;
-      height: 18px;
-      transition: transform 0.2s ease;
-    }
-    .hero-invite-btn:hover {
-      background: linear-gradient(135deg, #f8df84, #e1bc4c 55%, #c99729);
-      box-shadow: 0 8px 22px rgba(34, 20, 17, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-      transform: translateY(-2px);
-    }
-    .hero-invite-btn:hover svg {
-      transform: translateX(4px);
-    }
-   
-    @keyframes inviteShimmer {
-      0%, 65%, 100% { left: -70%; }
-      35% { left: 130%; }
-    }
-    .screen-sparkle {
-      position: fixed;
-      z-index: 3000;
-      left: var(--sparkle-x);
-      top: var(--sparkle-y);
-      color: var(--sparkle-color);
-      font-size: var(--sparkle-size);
-      line-height: 1;
-      pointer-events: none;
-      text-shadow: 0 0 10px rgba(255, 224, 128, 0.8);
-      will-change: transform, opacity;
-      animation: sparkleFly var(--sparkle-duration) cubic-bezier(0.2, 0.65, 0.25, 1) var(--sparkle-delay) both;
-    }
-    @keyframes sparkleFly {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.25) rotate(0deg);
-      }
-      12% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1) rotate(20deg);
-      }
-      55% {
-        opacity: 1;
-        transform: translate(calc(-50% + var(--fly-mid-x)), calc(-50% + var(--fly-mid-y))) scale(1.3) rotate(var(--sparkle-mid-rotation));
-      }
-      to {
-        opacity: 0;
-        transform: translate(calc(-50% + var(--fly-x)), calc(-50% + var(--fly-y))) scale(1) rotate(var(--sparkle-rotation));
-      }
-    }
-    /* Section Styles */
-    section {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-      background: linear-gradient(135deg, rgba(253, 251, 247, 0.2), rgba(123, 17, 19, 0.12));
-      -webkit-backdrop-filter: blur(8px) saturate(110%);
-      backdrop-filter: blur(8px) saturate(110%);
-      border: 1px solid rgba(255, 255, 255, 0.36);
-      border-radius: 18px;
-      box-shadow: 0 10px 32px rgba(34, 20, 17, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.55);
-      margin-bottom: 2rem;
-    }
-    section h2 {
-      font-family: 'Kantumruy Pro', 'Moul', serif;
-      color: var(--maroon);
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      letter-spacing: 1px;
-      text-align: center;
-    }
-    /* Blessings */
-    .blessings .parents {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 1.5rem;
-      margin-bottom: 1.2rem;
-    }
-    .blessings .parent-block {
-      flex: 1 1 220px;
-      background: rgba(253, 251, 247, 0.28);
-      -webkit-backdrop-filter: blur(4px);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(212, 175, 55, 0.48);
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
-      color: var(--maroon);
-      box-shadow: 0 4px 16px rgba(83, 49, 18, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.65);
-    }
-    .blessings .invitation-text {
-      font-size: 1.1rem;
-      color: var(--charcoal);
-      margin-top: 1rem;
-      text-align: center;
-      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
-    }
-    /* Program Timeline */
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      margin-top: 1.5rem;
-    }
-    .program-date {
-      margin: -0.5rem 0 1rem;
-      color: var(--maroon);
-      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
-      text-align: center;
-    }
-    .timeline-card {
-      -webkit-backdrop-filter: blur(4px) saturate(110%);
-      backdrop-filter: blur(4px) saturate(110%);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-left: 5px solid var(--gold);
-      border-radius: 10px;
-      padding: 1rem 1.2rem;
-      box-shadow: 0 4px 16px rgba(83, 49, 18, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.72);
-      display: flex;
-      align-items: flex-start;
-      gap: 1.2rem;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s, transform 0.7s;
-    }
-    .timeline-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .timeline-time {
-      font-family: 'Kantumruy Pro', 'Moul', serif;
-      color: var(--maroon);
-      font-size: 1.1rem;
-      min-width: 70px;
-      text-align: right;
-    }
-    .timeline-desc {
-      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
-      color: var(--charcoal);
-      font-size: 1.05rem;
-    }
-    /* Venue & Map */
-    .venue-details {
-      text-align: center;
-      margin-bottom: 1.2rem;
-    }
-    .venue-details strong {
-      color: var(--maroon);
-      font-family: 'Kantumruy Pro', 'Moul', serif;
-      font-size: 1.1rem;
-    }
-    .venue-map {
-      width: 100%;
-      height: 240px;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-      box-shadow: 0 1px 8px #d4af3722;
-      background: #eee;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .venue-map iframe {
-      width: 100%; height: 100%; border: 0;
-    }
-    .copy-btn {
-      background: var(--maroon);
-      color: var(--gold);
-      border: none;
-      border-radius: 18px;
-      padding: 0.4em 1.2em;
-      font-size: 1rem;
-      margin-left: 0.5em;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    /* Countdown */
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin: 1.5rem 0;
-    }
-    .countdown-block {
-      display: grid;
-      place-content: center;
-      width: 64px;
-      aspect-ratio: 1;
-      flex: 0 1 64px;
-      padding: 0.3em;
-      border: 2px solid rgba(255, 255, 255, 0.9);
-      border-radius: 50%;
-      box-shadow: 0 3px 12px rgba(20, 70, 145, 0.24);
-      -webkit-backdrop-filter: blur(4px);
-      backdrop-filter: blur(4px);
-      text-align: center;
-      min-width: 0;
-    }
-    .countdown-number {
-      font-family: 'Kantumruy Pro', 'Moul', serif;
-      font-size: 1.5rem;
-      color: var(--maroon);
-    }
-    .countdown-label {
-      font-size: 0.9rem;
-      color: var(--gold);
-      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
-    }
-    .countdown-block .countdown-number,
-    .countdown-block .countdown-label {
-      color: #fff;
-    }
-    .couple-portrait {
-      text-align: center;
-    }
-    .couple-portrait figure {
-      width: 100%;
-      margin: 0 auto;
-    }
-    .couple-gallery-viewport {
-      overflow: hidden;
-      border-radius: 14px;
-      touch-action: pan-y;
-    }
-    .couple-gallery {
-      display: flex;
-      transition: transform 0.8s cubic-bezier(0.22, 0.68, 0, 1);
-      user-select: none;
-    }
-    .couple-gallery.is-blurring {
-      animation: galleryBlurTransition 0.8s ease-in-out;
-    }
-    @keyframes galleryBlurTransition {
-      0%, 100% { filter: blur(0); }
-      45% { filter: blur(7px); }
-    }
-    .couple-gallery img {
-      display: block;
-      flex: 0 0 100%;
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      object-position: center 38%;
-      border-radius: 0;
-      box-shadow: 0 5px 16px rgba(30, 45, 70, 0.24);
-      -webkit-user-drag: none;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .couple-gallery { transition: none; animation: none; }
-    }
-    .couple-portrait figcaption {
-      margin-top: 1rem;
-      color: var(--cream);
-      font-family: 'Kantumruy Pro', 'Moul', serif;
-      font-size: 1.2rem;
-    }
-    /* RSVP Form */
-    .rsvp-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .rsvp-form label {
-      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
-      color: var(--maroon);
-      font-size: 1rem;
-      margin-bottom: 0.2em;
-    }
-    .rsvp-form input, .rsvp-form textarea, .rsvp-form select {
-      padding: 0.6em;
-      border: 1.5px solid var(--gold);
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: inherit;
-      background: #fff;
-      color: var(--charcoal);
-      resize: none;
-    }
-    .rsvp-form button {
-      margin-top: 0.5em;
-    }
-    /* Aba QR Modal */
-    .aba-modal-bg {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      inset: 0;
-      background: rgba(34,34,34,0.45);
-      align-items: center; justify-content: center;
-      padding: 16px;
-    }
-    .aba-modal-bg.active {
-      display: flex;
-    }
-    .aba-modal {
-      background: #fff;
-      border-radius: 18px;
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
-      box-shadow: 0 4px 32px #2225;
-      width: min(100%, 340px);
-      max-height: 100%;
-      overflow-y: auto;
-      text-align: center;
-      position: relative;
-      animation: fadeInUp 0.5s;
-    }
-    .aba-modal h3 {
-      font-family: 'Kantumruy Pro', 'Moul', serif;
-      color: var(--maroon);
-      margin-bottom: 1rem;
-    }
-    .aba-modal .qr-placeholder {
-      width: min(100%, 240px);
-      aspect-ratio: 1;
-      padding: 5px;
-      background: #fff;
-      border: 3px solid var(--gold);
-      border-radius: 16px;
-      margin: 0 auto 1rem auto;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .aba-modal .qr-placeholder img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 9px;
-    }
-    .aba-modal .bank-details {
-      font-size: 1rem;
-      color: var(--charcoal);
-      margin-bottom: 1rem;
-      font-family: 'Battambang', 'Noto Sans Khmer', sans-serif;
-    }
-    .aba-modal .copy-btn {
-      margin: 0.5em 0 0 0;
-    }
-    .aba-modal .close-btn {
-      position: absolute;
-      top: 0.7em; right: 1em;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--maroon);
-      cursor: pointer;
-    }
-    /* Fade-in-up animation */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    /* Intersection Observer fade-in */
-    .fade-in-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s, transform 0.7s;
-    }
-    .fade-in-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    /* Responsive */
-    @media (max-width: 600px) {
-      .hero {
-        padding: 3.25rem 1rem 1.75rem;
-      }
-      .hero h1 {
-        font-size: clamp(1.25rem, 5.5vw, 1.5rem);
-        line-height: 1.6;
-        letter-spacing: 3;
-      }
-      .hero .names {
-        font-size: clamp(1.15rem, 5vw, 1.3rem);
-        letter-spacing: 0;
-      }
-      .hero .hero-actions {
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-      .btn {
-        padding: 0.7em 1.25em;
-        font-size: 1rem;
-      }
-      .hero-invite-btn {
-        min-height: 48px;
-        border-radius: 10px;
-      }
-      .intro-screen {
-        padding: 20px 16px;
-      }
-      .intro-title { font-size: 1.3rem; }
-      .intro-names { font-size: 1.45rem; }
-      section {
-        margin: 0 18px 1.25rem;
-        padding: 1.1rem 0.75rem;
-        border-radius: 14px;
-      }
-      section h2 {
-        font-size: 1.25rem;
-        letter-spacing: 0;
-        line-height: 1.65;
-      }
-      .blessings .invitation-text {
-        font-size: 1rem;
-        line-height: 1.8;
-      }
-      .timeline-card {
-        flex-direction: column;
-        gap: 0.35rem;
-        padding: 0.85rem;
-      }
-      .timeline-time {
-        min-width: 0;
-        text-align: left;
-      }
-      .venue-map {
-        height: clamp(160px, 55vw, 220px);
-      }
-      .countdown {
-        gap: 0.4rem;
-        margin: 1rem 0;
-      }
-      .countdown-block {
-        flex: 1 1 0;
-        width: auto;
-        max-width: 64px;
-        min-width: 0;
-        padding: 0.25em;
-      }
-      .countdown-number { font-size: 1.1rem; }
-      .countdown-label { font-size: 0.7rem; }
-      .couple-gallery-viewport { border-radius: 10px; }
-      .kbach-divider {
-        height: 24px;
-        margin: 1.25rem 0 0.75rem;
-      }
-      .aba-modal {
-        padding: 1.5rem 1rem 1rem;
-      }
-    }
-    @media (max-width: 360px) {
-      .hero .venue { font-size: 0.9rem; }
-      .intro-open-button { padding: 0.7rem 1rem; }
-      .countdown-number { font-size: 1.1rem; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#f5f5e8" />
+<title>សំបុត្រអញ្ជើញ | Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Battambang:wght@300;400;500;600;700&family=Noto+Serif+Khmer:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#71852d;--deep:#244c35;--sage:#b7c99a;--pale:#eff1df;--cream:#faf9ef;--ink:#566333;--line:#c7d0a5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#e8eadb;color:var(--ink);font-family:'Battambang',sans-serif}
+.invitation-gate{position:fixed;inset:0;z-index:20;display:grid;place-items:center;overflow:hidden;padding:24px;background:radial-gradient(ellipse at 18% 24%,#dce8b9b8,transparent 34%),radial-gradient(ellipse at 82% 72%,#e0e9c2c9,transparent 37%),linear-gradient(135deg,#edf0da,#faf9ee 48%,#e7ebd2);transition:opacity .55s ease,visibility 0s linear .55s}
+.invitation-gate:before,.invitation-gate:after{position:absolute;content:"";width:240px;height:240px;border-radius:50%;background:#cbd9a348;filter:blur(58px);pointer-events:none}
+.invitation-gate:before{top:8%;left:10%}
+.invitation-gate:after{right:8%;bottom:8%;background:#d7dfb85c}
+.gate-card{position:relative;isolation:isolate;width:min(100%,430px);min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:34px 24px 28px;border:1px solid #fffef0;border-radius:50px;background:linear-gradient(145deg,#fafbefeb,#f0f3e2e8);box-shadow:0 18px 48px #29351b40,0 0 42px #74833935;text-align:center}
+.gate-card>*:not(.gate-leaf){position:relative;z-index:1}
+.gate-leaf{position:absolute;z-index:0;width:130px;height:auto;pointer-events:none;opacity:.72}
+.gate-leaf-top{top:-43px;left:-42px;transform:rotate(5deg)}
+.gate-leaf-bottom{right:-48px;bottom:-38px;width:145px;transform:rotate(180deg)}
+.gate-heart{display:grid;place-items:center;width:44px;height:44px;margin-bottom:8px;border-radius:50%;background:var(--green);color:white;font-size:23px;box-shadow:0 5px 16px #56633355}
+.gate-names{margin:0;color:var(--green);font-family:'Noto Serif Khmer',serif;font-size:clamp(23px,6vw,29px);font-weight:500;line-height:1.75}
+.gate-amp{margin:-1px 0;color:#9aa46a;font-family:serif;font-size:22px;font-style:italic}
+.gate-divider{width:72px;margin:9px 0 7px;border:0;border-top:1px solid #bdc99a}
+.gate-date{margin:0 0 8px;color:#77834a;font-size:13px}
+.gate-message{margin:0 0 15px;color:#77834a;font-size:12px}
+.gate-open{border:0;border-radius:24px;background:var(--green);color:white;padding:10px 28px;font:inherit;font-size:13px;cursor:pointer;box-shadow:0 5px 12px #56633340;transition:background .2s ease,transform .2s ease}
+.gate-open:hover{background:var(--deep);transform:translateY(-1px)}
+.gate-open:focus-visible{outline:2px solid var(--deep);outline-offset:3px}
+.music-toggle{position:fixed;right:max(18px,calc((100vw - 720px)/2));bottom:18px;z-index:19;border:1px solid #fffef0;border-radius:24px;background:#fafbefed;color:var(--deep);padding:9px 16px;font:inherit;font-size:12px;cursor:pointer;box-shadow:0 6px 18px #34401c20;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.music-toggle:focus-visible{outline:2px solid var(--deep);outline-offset:3px}
+.music-status{position:fixed;right:18px;bottom:64px;z-index:19;max-width:min(340px,calc(100vw - 36px));padding:8px 12px;border-radius:12px;background:#fafbefed;color:var(--deep);font-size:12px;box-shadow:0 6px 18px #34401c20}
+.music-toggle[hidden],.music-status[hidden]{display:none}
+.page{visibility:hidden}
+.invitation-started .page{visibility:visible}
+.invitation-started .invitation-gate{opacity:0;visibility:hidden;pointer-events:none}
+.invitation-gate:before,.invitation-gate:after{animation:ambientDrift 13s ease-in-out infinite alternate}
+.invitation-gate:after{animation-delay:-6s}
+.gate-card{animation:gateCardIn .9s cubic-bezier(.2,.8,.2,1) both}
+.gate-card>*:not(.gate-leaf){animation:gateContentIn .65s both}
+.gate-card .gate-heart{animation-delay:.08s}
+.gate-card h1{animation-delay:.14s}
+.gate-card .gate-amp{animation-delay:.2s}
+.gate-card h2{animation-delay:.26s}
+.gate-card .gate-divider{animation-delay:.32s}
+.gate-card .gate-date{animation-delay:.38s}
+.gate-card .gate-message{animation-delay:.44s}
+.gate-card .gate-open{animation-delay:.5s}
+.gate-heart{animation:heartGlow 3s ease-in-out infinite}
+.gate-leaf-top{animation:leafFloat 7s ease-in-out infinite alternate}
+.gate-leaf-bottom{animation:leafFloat 8s ease-in-out -2s infinite alternate}
+.gate-open{position:relative;overflow:hidden}
+.gate-open:after{position:absolute;inset:-60% auto -60% -45%;width:35%;content:"";background:linear-gradient(90deg,transparent,#ffffff70,transparent);transform:rotate(22deg);animation:buttonShine 5s ease-in-out 1.2s infinite}
+.invitation-gate.is-opening .gate-card{animation:gateCardOut .5s cubic-bezier(.4,0,.2,1) both}
+.page.motion-enabled section{opacity:0;transform:translateY(28px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+.page.motion-enabled section.is-visible{opacity:1;transform:translateY(0)}
+.invitation-started .hero-card{animation:heroCardIn .9s .08s cubic-bezier(.2,.8,.2,1) both}
+.invitation-started .hero .leaf-decoration{animation:leafFloat 9s ease-in-out infinite alternate}
+.invitation-started .hero .leaf-hero-right{animation-delay:-4s}
+.invitation-started .hero .leaf-hero-bottom{animation-delay:-2s}
+.invitation-started .gallery-track img{transition-duration:.8s}
+.gift-trigger{display:block;width:min(100%,220px);margin:18px auto;padding:0;border:0;background:transparent;cursor:pointer}
+.gift-trigger:focus-visible{outline:2px solid var(--green);outline-offset:6px;border-radius:12px}
+.gift{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 18px #34401c18);animation:giftFloat 5s ease-in-out infinite}
+.gift-qr-dialog{width:min(92vw,480px);max-width:none;max-height:min(90vh,760px);padding:30px 24px 24px;border:1px solid #fffef0;border-radius:24px;background:linear-gradient(145deg,#fafbef,#f0f3e2);color:var(--ink);box-shadow:0 24px 80px #1f2c1840;text-align:center}
+.gift-qr-dialog[open]{animation:gateCardIn .3s cubic-bezier(.2,.8,.2,1) both}
+.gift-qr-dialog::backdrop{background:#1b281b99;backdrop-filter:blur(5px)}
+.gift-qr-close{position:absolute;top:10px;right:12px;display:grid;place-items:center;width:38px;height:38px;border:0;border-radius:50%;background:#e8edcf;color:var(--deep);font-size:25px;line-height:1;cursor:pointer}
+.gift-qr-close:hover{background:#dce5c0}
+.gift-qr-close:focus-visible{outline:2px solid var(--deep);outline-offset:2px}
+.gift-qr-title{margin:8px 36px 6px;color:var(--green);font-family:'Noto Serif Khmer','Battambang',sans-serif;font-size:clamp(18px,5vw,24px);font-weight:500;line-height:1.8}
+.gift-qr-note{margin:0 0 18px;font-size:13px}
+.gift-qr-image{display:block;width:min(100%,400px);height:auto;margin:0 auto;border-radius:12px;background:#fff;box-shadow:0 8px 24px #34401c20}
+@media(max-width:480px){.gift-qr-dialog{padding:28px 16px 18px;border-radius:20px}}
+@keyframes ambientDrift{from{transform:translate3d(-12px,-8px,0) scale(.92)}to{transform:translate3d(20px,16px,0) scale(1.12)}}
+@keyframes gateCardIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes gateContentIn{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+@keyframes gateCardOut{to{opacity:0;transform:translateY(-12px) scale(1.025)}}
+@keyframes heartGlow{0%,100%{box-shadow:0 5px 16px #56633345;scale:1}50%{box-shadow:0 7px 23px #71852d72;scale:1.06}}
+@keyframes leafFloat{from{translate:0 -5px}to{translate:0 9px}}
+@keyframes buttonShine{0%,62%{left:-45%}82%,100%{left:125%}}
+@keyframes heroCardIn{from{opacity:0;transform:translateY(20px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes giftFloat{0%,100%{translate:0 0}50%{translate:0 -7px}}
+body:not(.invitation-started){overflow:hidden}
+@media(max-width:480px){.invitation-gate{padding:20px}.gate-card{min-height:285px;padding:32px 20px 25px}.gate-leaf{width:112px}.gate-leaf-bottom{width:128px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+.page{position:relative;width:min(100%,760px);margin:auto;overflow:hidden;background:linear-gradient(180deg,#fbfbf3 0%,#f0f2e1 52%,#faf9ef 100%);box-shadow:0 0 35px #35441b20}
+.page:before,.page:after{content:"";position:absolute;z-index:0;pointer-events:none;width:220px;height:360px;opacity:.32;background-repeat:no-repeat;background-size:contain}
+.page:before{top:0;left:-55px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 360' fill='none' stroke='%2395a96a' stroke-width='1.3'%3E%3Cpath d='M10 5Q100 120 175 350M40 60Q5 35 8 8Q48 18 40 60ZM72 112Q30 95 35 65Q82 75 72 112ZM100 164Q60 145 68 117Q112 130 100 164ZM130 220Q90 196 105 173Q147 190 130 220ZM153 275Q120 250 140 230Q176 250 153 275ZM48 95Q92 75 105 42Q54 50 48 95ZM83 150Q125 125 143 95Q95 105 83 150Z'/%3E%3C/svg%3E")}
+.page:after{right:-65px;bottom:0;transform:rotate(180deg);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 360' fill='none' stroke='%2395a96a' stroke-width='1.3'%3E%3Cpath d='M10 5Q100 120 175 350M40 60Q5 35 8 8Q48 18 40 60ZM72 112Q30 95 35 65Q82 75 72 112ZM100 164Q60 145 68 117Q112 130 100 164ZM130 220Q90 196 105 173Q147 190 130 220ZM153 275Q120 250 140 230Q176 250 153 275ZM48 95Q92 75 105 42Q54 50 48 95ZM83 150Q125 125 143 95Q95 105 83 150Z'/%3E%3C/svg%3E")}
+.leaf-decoration{position:absolute;z-index:0;height:auto;max-width:none;pointer-events:none;user-select:none}
+section>.leaf-decoration~:not(.leaf-decoration){position:relative;z-index:1}
+.leaf-hero{top:8px;right:-78px;width:clamp(160px,36vw,260px);transform:rotate(12deg);opacity:.25}
+.leaf-family{bottom:-68px;left:-132px;width:clamp(190px,42vw,300px);transform:rotate(20deg);opacity:.2}
+.leaf-moments{right:-95px;bottom:-45px;width:clamp(170px,36vw,250px);transform:rotate(-25deg);opacity:.2}
+.leaf-venue{top:-78px;right:-142px;width:clamp(270px,60vw,430px);transform:rotate(-15deg);opacity:.17}
+.leaf-footer{bottom:-38px;left:50%;width:min(94%,560px);transform:translateX(-50%);opacity:.24}
+@media(max-width:480px){.leaf-hero{right:-66px;width:190px;opacity:.2}.leaf-family{left:-112px;width:230px}.leaf-moments{right:-75px;width:180px}.leaf-venue{right:-122px;width:300px}.leaf-footer{bottom:-20px;width:100%}}
+section{position:relative;z-index:1;padding:40px 26px;text-align:center}.eyebrow{font-size:12px;letter-spacing:2px;color:#8b9b52}.khmer-title{font-family:'Noto Serif Khmer',serif;font-weight:500;color:var(--green);line-height:1.8}.hero{min-height:590px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:90px}.hero .seal{width:min(78%,330px);min-height:300px;border:1px solid #dce2c5;border-radius:48% 48% 45% 45%;background:#f5f6e9b8;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:0 12px 45px #71852d0d}.seal .small{font-size:17px;margin:8px}.seal .names{font-size:31px;margin:12px 0}.amp{font-family:serif;font-style:italic;font-size:24px;color:#a5ad70}.floral{font-size:38px;color:#a9b982;margin:20px 0 0}.intro{max-width:540px;margin:0 auto;font-size:14px;line-height:2.2}.names-large{font-size:clamp(25px,6vw,38px);margin:18px 0 4px}.date-big{font-family:Georgia,serif;font-size:42px;color:var(--green);line-height:1.1;margin:12px 0}.date-big small{font-family:'Battambang';font-size:13px;display:block;letter-spacing:2px}.panel{background:#e8edcf9c;border:1px solid #e1e6ca;border-radius:22px;padding:26px 20px;max-width:570px;margin:28px auto;box-shadow:0 12px 35px #71852d0c}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}.two-col>div{padding:10px;border-right:1px solid #c7d0a5}.two-col>div:last-child{border:0}.label{font-size:11px;color:#8c9b5a}.value{font-size:14px;font-weight:600;color:#566333}.couple-photo{width:min(100%,470px);height:330px;object-fit:cover;border-radius:14px;box-shadow:0 18px 38px #26391e35;margin:20px auto 0;display:block}.photo-caption{font-size:11px;margin-top:12px;color:#8b9562}.gallery{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:9px;align-items:center;max-width:520px;margin:25px auto}.gallery img{width:100%;height:180px;object-fit:cover;border-radius:10px;box-shadow:0 8px 20px #34401c20}.gallery img:nth-child(2){height:235px}.calendar{max-width:380px;margin:22px auto;padding:20px;background:#f9faef;border:1px solid #aebc7b;border-radius:16px}.month{font-family:Georgia,serif;font-size:18px;margin-bottom:14px}.days,.dates{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;font-size:11px}.days{padding-bottom:10px;border-bottom:1px solid #d5dcbb;color:#99a66a}.dates span{padding:6px 0}.dates .chosen{background:var(--green);color:white;border-radius:50%;font-weight:bold}.map{width:100%;height:230px;border:0;border-radius:13px;margin-top:18px;filter:saturate(.72)}.swatches{display:flex;justify-content:center;gap:15px;margin:22px}.swatches span{width:30px;height:30px;border-radius:50%;box-shadow:0 3px 8px #0002}.timeline{max-width:430px;margin:28px auto 0;text-align:left}.event{display:grid;grid-template-columns:65px 20px 1fr;gap:12px;align-items:start;min-height:62px;font-size:13px}.time{font-family:Georgia,serif;color:#8a9a4f;font-size:13px;text-align:right;padding-top:2px}.dot{width:10px;height:10px;border-radius:50%;background:#71852d;margin:5px auto;position:relative}.dot:after{content:"";position:absolute;width:1px;height:52px;background:#c4d0a0;left:4px;top:10px}.event:last-child .dot:after{display:none}.event-text{padding-bottom:18px}.event-text strong{display:block;color:#536332;font-weight:500}.event-text small{color:#929b6a}.form{max-width:500px;margin:20px auto;text-align:left;background:#fffef8d9;padding:22px;border-radius:16px;box-shadow:0 8px 25px #34401c10}.form label{display:block;font-size:12px;margin:12px 0 5px}.form input,.form select,.form textarea{width:100%;border:1px solid #d5dcbb;border-radius:8px;background:#fffefb;padding:12px;font:inherit;font-size:13px;color:#566333;outline:none}.form textarea{min-height:90px;resize:vertical}.btn{display:inline-block;border:0;border-radius:30px;background:var(--green);color:white;padding:11px 24px;font:inherit;font-size:13px;cursor:pointer;margin-top:14px}.btn:hover{background:var(--deep)}.message{font-size:12px;color:var(--deep);margin-top:12px;min-height:20px}.wishes{max-width:520px;margin:20px auto;text-align:left}.wish{background:#fffef8d9;border-radius:12px;padding:13px 16px;margin:10px 0;box-shadow:0 4px 14px #34401c0b}.wish strong{font-size:12px;color:#66783a}.wish p{font-size:12px;margin:5px 0 0;line-height:1.8}.wish time{float:right;font-size:10px;color:#a4aa83}.gift{display:block;width:min(100%,220px);height:auto;margin:18px auto;filter:drop-shadow(0 10px 18px #34401c18)}.footer{padding-bottom:100px}.footer .floral{font-size:52px}.small-note{font-size:11px;line-height:2;color:#89945f}
+@media(min-width:600px){section{padding:76px 50px}.hero{min-height:680px}.panel{padding:36px}.couple-photo{height:420px}}
+@media(max-width:380px){section{padding-left:17px;padding-right:17px}.hero{min-height:530px}.seal{min-height:260px!important}.couple-photo{height:270px}.gallery img{height:140px}.gallery img:nth-child(2){height:190px}}
+.gallery{display:block;position:relative;isolation:isolate;width:min(100%,560px);height:clamp(300px,76vw,430px);margin:30px auto 18px;overflow:hidden;perspective:1100px;touch-action:pan-y}
+.gallery-track{position:absolute;inset:0;transform-style:preserve-3d}
+.gallery-track img{position:absolute;top:50%;left:50%;width:auto;height:100%;max-width:62%;object-fit:contain;border-radius:12px;box-shadow:0 12px 28px #34401c30;opacity:0;visibility:hidden;transform:translate(-50%,-50%) scale(.72);transition:transform .65s cubic-bezier(.2,.7,.2,1),opacity .65s ease,filter .65s ease;filter:brightness(.76) saturate(.8)}
+.gallery-track img.is-active{height:92%;z-index:3;border-radius:14px;opacity:1;visibility:visible;transform:translate(-50%,-50%) translateZ(60px);filter:none;box-shadow:0 20px 44px #26391c48;animation:galleryPop .65s cubic-bezier(.2,.8,.2,1) both}
+.gallery-track img.is-previous,.gallery-track img.is-next{height:68%;z-index:2;opacity:.72;visibility:visible;filter:brightness(.82) saturate(.78)}
+.gallery-track img.is-previous{left:25%;transform:translate(-50%,-50%) translateZ(-40px) rotateY(22deg) scale(.96)}
+.gallery-track img.is-next{left:75%;transform:translate(-50%,-50%) translateZ(-40px) rotateY(-22deg) scale(.96)}
+.gallery-counter{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.gallery-control{position:absolute;top:50%;z-index:4;display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffffd9;border-radius:50%;background:#fafbefd9;color:var(--deep);font-size:25px;line-height:1;cursor:pointer;box-shadow:0 6px 16px #34401c20;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .2s ease,box-shadow .2s ease,transform .2s ease}
+.gallery-control.previous{left:14px;transform:translateY(-50%)}
+.gallery-control.next{right:14px;transform:translateY(-50%)}
+.gallery-control:hover{background:#fff;box-shadow:0 8px 20px #34401c30}
+.gallery-control.previous:hover{transform:translateY(-50%) translateX(-2px)}
+.gallery-control.next:hover{transform:translateY(-50%) translateX(2px)}
+.gallery-control:focus-visible,.gallery-dots button:focus-visible{outline:2px solid var(--deep);outline-offset:3px}
+.gallery-dots{display:flex;justify-content:center;align-items:center;gap:8px;width:max-content;max-width:100%;margin:14px auto;padding:8px 10px}
+.gallery-dots button{width:7px;height:7px;padding:0;border:0;border-radius:8px;background:#b9c59a;cursor:pointer;transition:width .3s ease,background .3s ease,transform .3s ease}
+.gallery-dots button:hover{transform:scale(1.2)}
+.gallery-dots button[aria-current="true"]{width:22px;background:var(--green)}
+@media(max-width:480px){.gallery{height:clamp(280px,92vw,360px);margin-top:24px;border-radius:22px}.gallery-track img.is-active{height:88%;max-width:66%;border-radius:15px}.gallery-track img.is-previous,.gallery-track img.is-next{height:58%;max-width:59%;opacity:.64}.gallery-track img.is-previous{left:22%}.gallery-track img.is-next{left:78%}.gallery-control{width:38px;height:38px;font-size:22px}.gallery-control.previous{left:9px}.gallery-control.next{right:9px}.gallery-counter{top:12px}}
+@media(prefers-reduced-motion:reduce){.gallery-track img{transition:none}}
+@keyframes galleryPop{0%{opacity:0;transform:translate(-50%,-50%) translateZ(0) scale(.86)}70%{opacity:1;transform:translate(-50%,-50%) translateZ(70px) scale(1.025)}100%{opacity:1;transform:translate(-50%,-50%) translateZ(60px) scale(1)}}
+.hero{min-height:clamp(650px,100svh,820px);padding:50px 24px;overflow:hidden;isolation:isolate}
+.hero .leaf-hero{top:-125px;left:-165px;right:auto;width:clamp(380px,78vw,590px);transform:rotate(5deg);opacity:.62}
+.hero .leaf-hero-right{top:26%;right:-138px;width:clamp(245px,44vw,340px);transform:rotate(10deg);opacity:.3}
+.hero .leaf-hero-bottom{bottom:-115px;right:-150px;width:clamp(340px,68vw,500px);transform:rotate(-18deg);opacity:.38}
+.hero-card{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:min(74%,360px);min-height:clamp(420px,66svh,530px);padding:58px 25px;border:1px solid #fffef0d9;border-radius:48% / 25%;background:linear-gradient(145deg,#f8f9edc9,#f2f4e3a8);box-shadow:0 18px 55px #66783a12,inset 0 0 24px #fff9;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hero-card .eyebrow{font-size:10px;letter-spacing:2.5px}
+.hero-card h1,.hero-card h2{margin:0;color:var(--green);font-family:'Noto Serif Khmer',serif;font-weight:500;line-height:1.75}
+.hero-card h1{font-size:clamp(29px,7vw,39px);margin-top:22px}
+.hero-card h2{font-size:clamp(29px,7vw,39px);margin-bottom:20px}
+.hero-card .amp{font-size:27px}
+.hero-card .cover-date{margin-top:14px;color:#8b9562;font-size:12px;letter-spacing:2px}
+@media(max-width:480px){.hero{min-height:100svh;padding:34px 18px}.hero .leaf-hero{top:-80px;left:-130px;width:390px}.hero .leaf-hero-right{top:23%;right:-128px;width:245px}.hero .leaf-hero-bottom{right:-136px;bottom:-80px;width:350px}.hero-card{width:min(78%,330px);min-height:min(65svh,490px);padding:48px 20px}}
+@media(max-width:380px){.hero{min-height:100svh}.hero-card{width:78%;min-height:min(65svh,450px)}}
+</style>
 </head>
-<body class="intro-open">
-  <audio id="backgroundMusic" src="music.m4a" loop preload="auto"></audio>
-  <div class="intro-screen" id="introScreen" role="dialog" aria-modal="true" aria-labelledby="introTitle">
-    <div class="intro-content">
-      <p class="intro-eyebrow">សិរីមង្គលអាពាហ៍ពិពាហ៍</p>
-      <div class="intro-ornament" aria-hidden="true"></div>
-      <p class="intro-names">សុខ សុភា <span aria-hidden="true">&amp;</span> ចាន់ ស្រីនាង</p>
-      <div class="hero-actions">
-        <button class="btn hero-invite-btn" id="openInvitation" type="button">
-          <span>បើកការអញ្ជើញ</span>
-        </button>
+<body>
+<div class="invitation-gate" id="invitationGate">
+  <div class="gate-card">
+    <img class="gate-leaf gate-leaf-top" src="leaf1-background.png" alt="" aria-hidden="true">
+    <img class="gate-leaf gate-leaf-bottom" src="leaf4-decoration.png" alt="" aria-hidden="true">
+    <div class="gate-heart" aria-hidden="true">♥</div>
+    <h1 class="gate-names">រស្មី</h1>
+    <div class="gate-amp" aria-hidden="true">&</div>
+    <h2 class="gate-names">ដារ៉ា</h2>
+    <hr class="gate-divider">
+    <p class="gate-date">១៩ ធ្នូ ២០២៧</p>
+    <p class="gate-message">សូមអញ្ជើញចូលរួមអបអរសាទរថ្ងៃពិសេសរបស់យើង</p>
+    <button class="gate-open" id="openInvitation" type="button">ចុចបើកសំបុត្រ</button>
+  </div>
+</div>
+<button class="music-toggle" id="musicToggle" type="button" aria-label="ផ្អាកតន្ត្រីផ្ទៃខាងក្រោយ" hidden>♫ ផ្អាកតន្ត្រី</button>
+<div class="music-status" id="musicStatus" role="status" aria-live="polite" hidden></div>
+<main class="page" id="invitationPage" inert>
+  <section class="hero">
+    <img class="leaf-decoration leaf-hero" src="leaf1-background.png" alt="" aria-hidden="true">
+    <img class="leaf-decoration leaf-hero-right" src="leaf4-decoration.png" alt="" aria-hidden="true">
+    <img class="leaf-decoration leaf-hero-bottom" src="leaf2-background.png" alt="" aria-hidden="true">
+    <div class="hero-card">
+      <div class="eyebrow"></div>
+      <h1>រស្មី</h1>
+      <div class="amp">&</div>
+      <h2>ដារ៉ា</h2>
+      <div class="cover-date">19 · 12 · 2027</div>
+    </div>
+  </section>
+
+  <section>
+    <img class="leaf-decoration leaf-family" src="leaf2-background.png" alt="" aria-hidden="true">
+    <div class="panel">
+      <div class="eyebrow"></div>
+      <h2 class="khmer-title">សេចក្តីគោរពអញ្ជើញ</h2>
+      <p class="intro">យើងខ្ញុំមានកិត្តិយសសូមគោរពអញ្ជើញ លោក លោកស្រី អ្នកនាងកញ្ញា អញ្ជើញចូលរួមជាអធិបតី និងជាសាក្សីក្នុងពិធីមង្គលការរបស់យើងខ្ញុំ។</p>
+      <div class="two-col">
+        <div><div class="label">កូនប្រុស</div><div class="value khmer-title">ប៉ាន់ រស្មី</div></div>
+        <div><div class="label">កូនស្រី</div><div class="value khmer-title">ដារ៉ា</div></div>
       </div>
     </div>
-  </div>
-  <!-- Hero Section -->
-  <div class="hero">
-    <svg class="kbach-top" height="32" viewBox="0 0 1440 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M0,32 Q360,0 720,32 Q1080,64 1440,32 L1440,0 L0,0 Z" fill="#D4AF37" opacity="0.18"/>
-      <path d="M0,32 Q360,16 720,32 Q1080,48 1440,32" stroke="#D4AF37" stroke-width="2" fill="none"/>
-    </svg>
-    <div class="hero-content">
-      <h1>សិរីមង្គលអាពាហ៍ពិពាហ៍</h1>
-      <div class="names">សុខ សុភា &nbsp;🤍 &nbsp; ចាន់ ស្រីនាង</div>
-      <div class="date">
-        ថ្ងៃសៅរ៍ ទី២៨ ខែវិច្ឆិកា ឆ្នាំច សំរឹទ្ធិស័ក ព.ស.២៥៦៩<br>
+    <p class="intro">សូមអញ្ជើញចូលរួមអបអរសាទរ និងចែករំលែកក្ដីស្រឡាញ់ក្នុងថ្ងៃដ៏ពិសេសរបស់យើង។</p>
+    <div class="date-big">19 <small>ធ្នូ · ២០២៧</small></div>
+    <div class="eyebrow">ថ្ងៃអាទិត្យ · 5:00 PM</div>
+  </section>
+
+  <section>
+    <img class="leaf-decoration leaf-moments" src="leaf3-decoration.png" alt="" aria-hidden="true">
+    <div class="eyebrow"></div><h2 class="khmer-title">អនុស្សាវរីយ៍របស់យើង</h2>
+    <div class="gallery" id="momentGallery" role="region" aria-roledescription="carousel" aria-label="Our moments">
+      <div class="gallery-counter" aria-live="polite" aria-atomic="true"></div>
+      <div class="gallery-track">
+        <img src="imag-1.png" alt="Wedding memory 1">
+        <img src="imag-2.png" alt="Wedding memory 2">
+        <img src="imag-3.png" alt="Wedding memory 3">
+        <img src="imag-4.png" alt="Wedding memory 4">
+        <img src="imag-5.png" alt="Wedding memory 5">
+        <img src="imag-6.png" alt="Wedding memory 6">
+      </div>
+      <button class="gallery-control previous" type="button" aria-label="Previous photo">‹</button>
+      <button class="gallery-control next" type="button" aria-label="Next photo">›</button>
+    </div>
+    <div class="gallery-dots" aria-label="Choose a photo"></div>
+    <div class="photo-caption">ថ្ងៃដែលគួរចងចាំ · 2027</div>
+  </section>
+
+  <section>
+    <div class="eyebrow">កត់ចំណាំថ្ងៃនេះទុក</div><h2 class="khmer-title">កាលបរិច្ឆេទពិធីមង្គលការ</h2>
+    <div class="date-big">១៩ <small>ខៃធ្នូ  2027</small></div>
+    <div class="calendar">
+      <div class="month">ខែធ្នូ   - 2027</div>
+      <div class="days"><span>អា</span><span>ច</span><span>អ</span><span>ពុ</span><span>ព្រ</span><span>សុ</span><span>សៅ</span></div>
+      <div class="dates">
+        <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+        <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+        <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+        <span class="chosen">19 ♥</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+        <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Blessings Section -->
-  <section class="blessings fade-in-up">
-      <h2>យើងខ្ញុំមានកិត្តិយសសូមគោរពអញ្ជើញ</h2>
-      <div class="invitation-text">សម្តេច ទ្រង់ ឯកឧត្តម លោកជំទាវ លោកអ្នកឧកញ៉ា អ្នកឧកញ៉ា ឧកញ៉ា លោក លោកស្រី អ្នកនាង កញា ព្រមទាំងប្រិយមិត្តអញ្ជើញចូលរួមជាអធិបតី និងជាភ្ញៀវកិត្តិយស ដើម្បីប្រសិទ្ធិពរជ័យសិរីសួស្តី ជ័យមង្គល ក្នុងពិធីអាពាហ៍ពិពាហ៍ របស់យើងខ្ញុំទាំងពីរ។<br>
-      </div>
-    </section>
-
-    <svg class="kbach-divider" height="32" viewBox="0 0 1440 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M0,16 Q360,32 720,16 Q1080,0 1440,16" stroke="#D4AF37" stroke-width="2" fill="none"/>
-    </svg>
-
-    <!-- Program Timeline -->
-    <section class="program fade-in-up">
-      <h2>របៀបវារៈកម្មវិធី</h2>
-      <p class="program-date">ថ្ងៃសៅរ៍ ទី២៨ ខែវិច្ឆិកា ឆ្នាំ២០២៦</p>
-      <div class="timeline" id="timeline">
-        <div class="timeline-card">
-          <div class="timeline-time">៦:៣០ ព្រឹក</div>
-          <div class="timeline-desc">ជួបជុំភ្ញៀវកិត្តិយសដើម្បីរៀបចំពិធីហែលជំនូន</div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-time">៧:០០ ព្រឹក</div>
-          <div class="timeline-desc">ហែលជំនូន ជូនផ្កាស្លានិយាយជើងការនិងជូនបណ្តាការ</div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-time">៨:០០ ព្រឹក</div>
-          <div class="timeline-desc">ពិធីបំពាក់ជញ្ជៀននិងពិសាស្លា</div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-time">៩:០០ ព្រឹក</div>
-          <div class="timeline-desc">ពិធីសូត្រមន្តចម្រើនព្រះបរិត្ត</div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-time">១០:០០ ព្រឹក</div>
-          <div class="timeline-desc">ពិធីកាត់សក់បង្កក់សិរី</div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-time">១១:០០ ព្រឹក</div>
-          <div class="timeline-desc">បើកវាំងនន បង្វិលពពិល និងផ្ទឹមចងដៃ</div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-time">១២:០០ ថ្ងៃត្រង់</div>
-          <div class="timeline-desc">អញ្ជើញភ្ញៀវកិត្តិយសពិសាអាហារថ្ងៃត្រង់</div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-time">៥:០០ ល្ងាច</div>
-          <div class="timeline-desc">ទទួលបដិសណ្ឋារកិច្ចភ្ញៀវកិត្តិយសពិសាអាហារដោយមេត្រីភាព</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="couple-portrait fade-in-up" aria-label="រូបថតកូនកំលោះ និងកូនក្រមុំ">
-      <h2>កម្រងរូបភាពគូស្វាមីភរិយា</h2>
-      <figure class="gallery-carousel" role="region" aria-roledescription="carousel" aria-label="កម្រងរូបភាពគូស្វាមីភរិយា">
-        <div class="couple-gallery-viewport">
-        <div class="couple-gallery">
-          <img src="imag-1.png" alt="" aria-hidden="true">
-          <img src="imag-3.png" alt="" aria-hidden="true">
-          <img src="imag-2.png" alt="" aria-hidden="true">
-          <img src="imag-5.png" alt="" aria-hidden="true">
-          <img src="imag-4.png" alt="" aria-hidden="true">
-          <img src="imag-6.png" alt="" aria-hidden="true">
-        </div>
-        </div>
-      </figure>
-    </section>
-
-    <main id="main" tabindex="-1">
-    <!-- Countdown Timer -->
-    <section class="countdown-section fade-in-up">
-      <h2>រាប់ថយក្រោយដល់ពិធីពិសាភោជនាហារ</h2>
-      <div class="countdown" id="countdown">
-        <div class="countdown-block">
-          <div class="countdown-number" id="days">00</div>
-          <div class="countdown-label">ថ្ងៃ</div>
-        </div>
-        <div class="countdown-block">
-          <div class="countdown-number" id="hours">00</div>
-          <div class="countdown-label">ម៉ោង</div>
-        </div>
-        <div class="countdown-block">
-          <div class="countdown-number" id="minutes">00</div>
-          <div class="countdown-label">នាទី</div>
-        </div>
-        <div class="countdown-block">
-          <div class="countdown-number" id="seconds">00</div>
-          <div class="countdown-label">វិនាទី</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Venue & Map -->
-    <section class="venue fade-in-up">
-      <h2>ទីតាំងកម្មវិធី</h2>
-      <div class="venue-details">
-        <strong>សាលាអាពាហ៍ពិពាហ៍ ភ្នំពេញ</strong><br>
-        Building B, Street 2004, Phnom Penh<br>
-        <button class="copy-btn" onclick="copyText('Building B, Street 2004, Phnom Penh')">ចម្លងអាសយដ្ឋាន</button>
-      </div>
-      <div class="venue-map">
-        <!-- Replace src with your actual Google Maps embed link -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.927123456789!2d104.88888888888889!3d11.555555555555555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31095123456789ab%3A0xabcdefabcdefabcd!2sPhnom%20Penh%20Wedding%20Hall!5e0!3m2!1sen!2skh!4v1660000000000!5m2!1sen!2skh" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Wedding Venue Map"></iframe>
-      </div>
-      <a class="btn" href="https://maps.google.com/?q=Phnom+Penh+Wedding+Hall+Building+B+Street+2004" target="_blank" rel="noopener">Get Directions</a>
-    </section>
-
-    <svg class="kbach-divider" height="32" viewBox="0 0 1440 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M0,16 Q360,32 720,16 Q1080,0 1440,16" stroke="#D4AF37" stroke-width="2" fill="none"/>
-    </svg>
-
-    <!-- ABA Bank QR Section -->
-    <section class="aba fade-in-up" style="text-align:center;">
-      <h2>ចំណងដៃឌីជីថល (ABA QR)</h2>
-      <button class="btn" onclick="toggleAbaModal(true)">បង្ហាញ KHQR</button>
-    </section>
-  </main>
-
-  <!-- ABA Modal -->
-  <div class="aba-modal-bg" id="abaModalBg" onclick="toggleAbaModal(false)">
-    <div class="aba-modal" onclick="event.stopPropagation()">
-      <button class="close-btn" onclick="toggleAbaModal(false)" aria-label="Close">&times;</button>
-      <h3>ABA KHQR</h3>
-      <div class="qr-placeholder">
-        <img src="IMG_3660.JPG" alt="ABA KHQR ស្កេនដើម្បីផ្ញើចំណងដៃ">
-      </div>
-      <div class="bank-details">
-        ឈ្មោះគណនី៖ សុខ សុភា<br>
-        ABA: 000123456<br>
-      </div>
+  <section>
+    <img class="leaf-decoration leaf-venue" src="leaf4-decoration.png" alt="" aria-hidden="true">
+    <div class="eyebrow"></div><h2 class="khmer-title">ទីតាំងប្រារព្ធពិធី</h2>
+    <p class="intro">សូមអញ្ជើញមកចូលរួមពិធីមង្គលការរបស់យើង នៅសាលមង្គលការ។</p>
+    <div class="panel"><div class="khmer-title">ភោជនីយដ្ឋាន និងសាលមង្គលការ</div><p class="small-note">ផ្លូវធំ · រាជធានីភ្នំពេញ · ប្រទេសកម្ពុជា</p>
+      <iframe class="map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=104.88%2C11.53%2C104.94%2C11.57&layer=mapnik" title="Map location"></iframe>
+      <a class="btn" style="text-decoration:none" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Wedding+venue+Phnom+Penh">បើកផែនទី</a>
     </div>
-  </div>
+  </section>
 
-  <script>
-    const introScreen = document.getElementById('introScreen');
-    const openInvitation = document.getElementById('openInvitation');
-    const invitationMain = document.getElementById('main');
-    const backgroundMusic = document.getElementById('backgroundMusic');
-    openInvitation.addEventListener('click', () => {
-      backgroundMusic.volume = 0.5;
-      backgroundMusic.play().catch(() => {});
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!reduceMotion) {
-        const buttonRect = openInvitation.getBoundingClientRect();
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
-        const startX = buttonRect.left + buttonRect.width / 2;
-        const startY = buttonRect.top + buttonRect.height / 2;
-        const columns = screenWidth < 600 ? 6 : 10;
-        const rows = screenWidth < 600 ? 7 : 8;
-        const particleCount = columns * rows;
-        const symbols = ['✦', '✧', '·'];
-        for (let i = 0; i < particleCount; i++) {
-          const column = i % columns;
-          const row = Math.floor(i / columns);
-          const cellWidth = screenWidth / columns;
-          const cellHeight = screenHeight / rows;
-          const sparkle = document.createElement('span');
-          sparkle.className = 'screen-sparkle';
-          sparkle.setAttribute('aria-hidden', 'true');
-          sparkle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-          const targetX = Math.min(screenWidth - 12, Math.max(12,
-            (column + 0.5) * cellWidth + (Math.random() - 0.5) * cellWidth * 0.55
-          ));
-          const targetY = Math.min(screenHeight - 12, Math.max(12,
-            (row + 0.5) * cellHeight + (Math.random() - 0.5) * cellHeight * 0.55
-          ));
-          const flyX = targetX - startX;
-          const flyY = targetY - startY;
-          const rotation = Math.random() * 360 - 180;
-          const arc = (Math.random() - 0.5) * Math.min(screenWidth, screenHeight) * 0.18;
-          sparkle.style.setProperty('--sparkle-x', `${startX}px`);
-          sparkle.style.setProperty('--sparkle-y', `${startY}px`);
-          sparkle.style.setProperty('--fly-x', `${flyX}px`);
-          sparkle.style.setProperty('--fly-y', `${flyY}px`);
-          sparkle.style.setProperty('--fly-mid-x', `${flyX * 0.5 - Math.sign(flyY) * arc}px`);
-          sparkle.style.setProperty('--fly-mid-y', `${flyY * 0.5 + Math.sign(flyX) * arc}px`);
-          sparkle.style.setProperty('--sparkle-size', `${9 + Math.random() * 12}px`);
-          sparkle.style.setProperty('--sparkle-duration', `${1700 + Math.random() * 900}ms`);
-          sparkle.style.setProperty('--sparkle-delay', `${Math.random() * 420}ms`);
-          sparkle.style.setProperty('--sparkle-rotation', `${rotation}deg`);
-          sparkle.style.setProperty('--sparkle-mid-rotation', `${rotation * 0.58}deg`);
-          sparkle.style.setProperty('--sparkle-color', Math.random() > 0.35 ? '#f3d66f' : '#fdfbf7');
-          sparkle.addEventListener('animationend', () => sparkle.remove(), { once: true });
-          document.body.appendChild(sparkle);
-        }
-      }
-      introScreen.classList.add('is-opening');
-      introScreen.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('intro-open');
-      window.setTimeout(() => {
-        introScreen.remove();
-        invitationMain.focus({ preventScroll: true });
-        window.scrollTo({
-          top: 0,
-          behavior: reduceMotion ? 'auto' : 'smooth'
-        });
-      }, 650);
-    });
-    openInvitation.focus({ preventScroll: true });
-    introScreen.addEventListener('keydown', (event) => {
-      if (event.key === 'Tab') {
-        event.preventDefault();
-        openInvitation.focus();
-      }
-    });
+  <section>
+    <div class="eyebrow"></div><h2 class="khmer-title">ពណ៌សម្លៀកបំពាក់</h2>
+    <div class="swatches"><span style="background:#173f2c"></span><span style="background:#64836a"></span><span style="background:#b9d8b9"></span><span style="background:#e8e8d3"></span></div>
+    <div class="small-note">បៃតងចាស់ · បៃតងប្រផេះ · បៃតងស្រាល · ពណ៌សភ្លុក</div>
+  </section>
 
-    // Intersection Observer for fade-in-up
-    const fadeEls = document.querySelectorAll('.fade-in-up, .timeline-card');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+  <section>
+    <div class="eyebrow"></div><h2 class="khmer-title">កម្មវិធីពិធីមង្គលការ</h2>
+    <div class="timeline">
+      <div class="event"><div class="time">07:00</div><div class="dot"></div><div class="event-text"><strong>ពិធីហែជំនូន</strong></div></div>
+      <div class="event"><div class="time">08:00</div><div class="dot"></div><div class="event-text"><strong>ពិធីក្រុងពាលី</strong></div></div>
+      <div class="event"><div class="time">08:30</div><div class="dot"></div><div class="event-text"><strong>ពិធីសូត្រមន្ត</strong></div></div>
+      <div class="event"><div class="time">09:00</div><div class="dot"></div><div class="event-text"><strong>ពិធីចងដៃ</strong></div></div>
+      <div class="event"><div class="time">10:30</div><div class="dot"></div><div class="event-text"><strong>ពិធីកាត់នំ និងថតរូប</strong></div></div>
+      <div class="event"><div class="time">17:00</div><div class="dot"></div><div class="event-text"><strong>ពិធីទទួលភ្ញៀវពេលល្ងាច</strong></div></div>
+    </div>
+  </section>
+
+  <section class="footer">
+    <img class="leaf-decoration leaf-footer" src="leaf5-bottom.png" alt="" aria-hidden="true">
+    <div class="eyebrow"></div><h2 class="khmer-title">ចំណងដៃ និងពរជ័យ</h2>
+    <button class="gift-trigger" id="openGiftQr" type="button" aria-label="បើក QR សម្រាប់ចំណងដៃ">
+      <img class="gift" src="glass_garden_light_green.png" alt="">
+    </button>
+    <p class="intro">វត្តមានរបស់អ្នក គឺជាកាដូដ៏មានតម្លៃបំផុតសម្រាប់យើង។ សូមអរគុណដែលបានចូលរួមចែករំលែកថ្ងៃដ៏ពិសេសនេះ។</p>
+    <div class="floral">❧</div><h2 class="khmer-title">សូមអរគុណ</h2>
+  </section>
+</main>
+<dialog class="gift-qr-dialog" id="giftQrDialog" aria-labelledby="giftQrTitle">
+  <button class="gift-qr-close" id="closeGiftQr" type="button" aria-label="បិទ">×</button>
+  <h2 class="gift-qr-title" id="giftQrTitle">ស្កេន QR សម្រាប់ចំណងដៃ</h2>
+  <p class="gift-qr-note">សូមអរគុណសម្រាប់ពរជ័យ និងទឹកចិត្តរបស់អ្នក</p>
+  <img class="gift-qr-image" src="IMG_3660.JPG" alt="QR code សម្រាប់ផ្ញើអំណោយ">
+</dialog>
+<audio id="backgroundMusic" src="music.m4a" preload="none" loop></audio>
+<script>
+const giftQrDialog=document.getElementById('giftQrDialog');
+document.getElementById('openGiftQr').addEventListener('click',()=>giftQrDialog.showModal());
+document.getElementById('closeGiftQr').addEventListener('click',()=>giftQrDialog.close());
+giftQrDialog.addEventListener('click',event=>{
+  if(event.target===giftQrDialog) giftQrDialog.close();
+});
+const invitationPage=document.getElementById('invitationPage');
+const backgroundMusic=document.getElementById('backgroundMusic');
+const musicToggle=document.getElementById('musicToggle');
+const musicStatus=document.getElementById('musicStatus');
+backgroundMusic.volume=0.4;
+function updateMusicToggle(){
+  const isPlaying=!backgroundMusic.paused;
+  musicToggle.textContent=isPlaying?'♫ ផ្អាកតន្ត្រី':'♪ ចាក់តន្ត្រី';
+  musicToggle.setAttribute('aria-label',isPlaying?'ផ្អាកតន្ត្រីផ្ទៃខាងក្រោយ':'ចាក់តន្ត្រីផ្ទៃខាងក្រោយ');
+}
+function playBackgroundMusic(){
+  backgroundMusic.play().then(()=>{
+    musicStatus.hidden=true;
+    updateMusicToggle();
+  }).catch(()=>{
+    musicStatus.textContent='មិនអាចចាក់តន្ត្រីបានទេ។ សូមចុចប៊ូតុងតន្ត្រីដើម្បីព្យាយាមម្ដងទៀត។';
+    musicStatus.hidden=false;
+    updateMusicToggle();
+  });
+}
+musicToggle.addEventListener('click',()=>{
+  if(backgroundMusic.paused) playBackgroundMusic();
+  else backgroundMusic.pause();
+});
+backgroundMusic.addEventListener('play',updateMusicToggle);
+backgroundMusic.addEventListener('pause',updateMusicToggle);
+document.getElementById('openInvitation').addEventListener('click',()=>{
+  invitationPage.inert=false;
+  document.getElementById('invitationGate').classList.add('is-opening');
+  document.body.classList.add('invitation-started');
+  musicToggle.hidden=false;
+  playBackgroundMusic();
+  if(reducedMotion||!('IntersectionObserver' in window)){
+    invitationPage.querySelectorAll('section').forEach(section=>section.classList.add('is-visible'));
+  }else{
+    invitationPage.classList.add('motion-enabled');
+    const sections=Array.from(invitationPage.querySelectorAll('section'));
+    sections[0].classList.add('is-visible');
+    const sectionObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          sectionObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15 });
-    fadeEls.forEach(el => observer.observe(el));
-
-    // Couple photo carousel
-    const galleryTrack = document.querySelector('.couple-gallery');
-    const gallerySlides = Array.from(galleryTrack.children);
-    const galleryViewport = document.querySelector('.couple-gallery-viewport');
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let activeGallerySlide = 0;
-    let galleryTimer;
-    let touchStartX = null;
-    const galleryPaused = prefersReducedMotion.matches;
-
-    function showGallerySlide(index) {
-      const nextSlide = (index + gallerySlides.length) % gallerySlides.length;
-      if (nextSlide !== activeGallerySlide) {
-        galleryTrack.classList.remove('is-blurring');
-        void galleryTrack.offsetWidth;
-        galleryTrack.classList.add('is-blurring');
-      }
-      activeGallerySlide = nextSlide;
-      galleryTrack.style.transform = `translateX(-${activeGallerySlide * 100}%)`;
-      gallerySlides.forEach((slide, slideIndex) => {
-        slide.setAttribute('aria-hidden', String(slideIndex !== activeGallerySlide));
-      });
-    }
-
-    galleryTrack.addEventListener('animationend', () => {
-      galleryTrack.classList.remove('is-blurring');
-    });
-
-    galleryViewport.addEventListener('pointerdown', (event) => {
-      touchStartX = event.clientX;
-    });
-    galleryViewport.addEventListener('pointerup', (event) => {
-      if (touchStartX === null) return;
-      const swipeDistance = event.clientX - touchStartX;
-      if (Math.abs(swipeDistance) > 40) {
-        showGallerySlide(activeGallerySlide + (swipeDistance < 0 ? 1 : -1));
-        window.clearInterval(galleryTimer);
-        if (!galleryPaused) {
-          galleryTimer = window.setInterval(() => showGallerySlide(activeGallerySlide + 1), 7000);
-        }
-      }
-      touchStartX = null;
-    });
-    galleryViewport.addEventListener('pointercancel', () => {
-      touchStartX = null;
-    });
-    showGallerySlide(0);
-    if (!galleryPaused && gallerySlides.length > 1) {
-      galleryTimer = window.setInterval(() => showGallerySlide(activeGallerySlide + 1), 7000);
-    }
-
-    // Timeline cards animation (sequential)
-    const timelineCards = document.querySelectorAll('.timeline-card');
-    timelineCards.forEach((card, i) => {
-      observer.observe(card);
-      card.style.transitionDelay = (i * 0.15) + 's';
-    });
-
-    // Countdown Timer
-    // Set your wedding reception datetime here (YYYY-MM-DDTHH:MM:SS)
-    const targetDate = new Date('2026-11-28T17:00:00+07:00');
-    function updateCountdown() {
-      const now = new Date();
-      let diff = Math.max(0, targetDate - now);
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      diff -= days * (1000 * 60 * 60 * 24);
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      diff -= hours * (1000 * 60 * 60);
-      const minutes = Math.floor(diff / (1000 * 60));
-      diff -= minutes * (1000 * 60);
-      const seconds = Math.floor(diff / 1000);
-      document.getElementById('days').textContent = String(days).padStart(2, '0');
-      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    // RSVP Form
-    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('guestName').value.trim();
-      const count = document.getElementById('guestCount').value;
-      const msg = document.getElementById('message').value.trim();
-      alert(`សូមអរគុណចំពោះការបញ្ជាក់!\n\nឈ្មោះ៖ ${name}\nចំនួន៖ ${count}\nសារជូនពរ៖ ${msg ? msg : '—'}`);
-      this.reset();
-    });
-
-    // ABA Modal
-    function toggleAbaModal(show) {
-      const modal = document.getElementById('abaModalBg');
-      if (show) {
-        modal.classList.add('active');
-      } else {
-        modal.classList.remove('active');
-      }
-    }
-
-    window.toggleAbaModal = toggleAbaModal;
-    window.copyText = copyText;
-  </script>
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    requestAnimationFrame(()=>sections.slice(1).forEach(section=>sectionObserver.observe(section)));
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+  restartMomentTimer();
+});
+const momentGallery=document.getElementById('momentGallery');
+const momentTrack=momentGallery.querySelector('.gallery-track');
+const momentSlides=Array.from(momentTrack.querySelectorAll('img'));
+const momentDots=document.querySelector('.gallery-dots');
+const momentCounter=document.querySelector('.gallery-counter');
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let activeMoment=0;
+let momentTimer;
+momentSlides.forEach((slide,index)=>{
+  const dot=document.createElement('button');
+  dot.type='button';
+  dot.setAttribute('aria-label','Show photo '+(index+1));
+  dot.addEventListener('click',()=>{showMoment(index);restartMomentTimer()});
+  momentDots.append(dot);
+});
+const momentDotButtons=Array.from(momentDots.children);
+function showMoment(index){
+  activeMoment=(index+momentSlides.length)%momentSlides.length;
+  momentCounter.textContent=(activeMoment+1)+' / '+momentSlides.length;
+  const previousMoment=(activeMoment+momentSlides.length-1)%momentSlides.length;
+  const nextMoment=(activeMoment+1)%momentSlides.length;
+  momentSlides.forEach((slide,i)=>{
+    slide.classList.toggle('is-active',i===activeMoment);
+    slide.classList.toggle('is-previous',i===previousMoment);
+    slide.classList.toggle('is-next',i===nextMoment);
+    slide.setAttribute('aria-hidden',String(i!==activeMoment));
+  });
+  momentDotButtons.forEach((dot,i)=>{
+    if(i===activeMoment) dot.setAttribute('aria-current','true');
+    else dot.removeAttribute('aria-current');
+  });
+}
+function restartMomentTimer(){
+  window.clearInterval(momentTimer);
+  if(document.body.classList.contains('invitation-started')&&!reducedMotion) momentTimer=window.setInterval(()=>showMoment(activeMoment+1),5000);
+}
+momentGallery.querySelector('.previous').addEventListener('click',()=>{showMoment(activeMoment-1);restartMomentTimer()});
+momentGallery.querySelector('.next').addEventListener('click',()=>{showMoment(activeMoment+1);restartMomentTimer()});
+let galleryTouchStartX=null;
+momentGallery.addEventListener('pointerdown',event=>{galleryTouchStartX=event.clientX});
+momentGallery.addEventListener('pointerup',event=>{
+  if(galleryTouchStartX===null) return;
+  const swipeDistance=event.clientX-galleryTouchStartX;
+  if(Math.abs(swipeDistance)>40){showMoment(activeMoment+(swipeDistance<0?1:-1));restartMomentTimer()}
+  galleryTouchStartX=null;
+});
+momentGallery.addEventListener('pointercancel',()=>{galleryTouchStartX=null});
+momentGallery.addEventListener('mouseenter',()=>window.clearInterval(momentTimer));
+momentGallery.addEventListener('mouseleave',restartMomentTimer);
+momentGallery.addEventListener('focusin',()=>window.clearInterval(momentTimer));
+momentGallery.addEventListener('focusout',event=>{
+  if(!momentGallery.contains(event.relatedTarget)) restartMomentTimer();
+});
+showMoment(0);
+restartMomentTimer();
+// Demo RSVP: submissions are shown on this page only. Connect a backend/Firebase to save them.
+document.getElementById('rsvpForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name=document.getElementById('guestName').value.trim();
+  const attendance=document.getElementById('attendance').value;
+  const guests=document.getElementById('guests').value;
+  const note=document.getElementById('note').value.trim();
+  if(!name) return;
+  const card=document.createElement('div'); card.className='wish';
+  const safeName=document.createElement('strong'); safeName.textContent=name;
+  const time=document.createElement('time'); time.textContent=new Date().toLocaleDateString('km-KH');
+  const p=document.createElement('p'); p.textContent=attendance+' · ភ្ញៀវ '+guests+' នាក់'+(note?' · '+note:'');
+  card.append(time,safeName,p); document.getElementById('wishes').prepend(card);
+  document.getElementById('rsvpMessage').textContent='អរគុណ! ការបញ្ជាក់របស់អ្នកត្រូវបានបង្ហាញនៅលើទំព័រនេះ។';
+  this.reset();
+});
+// Downloads a simple calendar invitation file.
+document.getElementById('calendarBtn').addEventListener('click', function(){
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding Invitation//KM','BEGIN:VEVENT','UID:wedding-sophea-dara-20271219@example.com','DTSTAMP:20261103T000000Z','DTSTART:20271219T100000Z','DTEND:20271219T150000Z','SUMMARY:Wedding of Sophea and Dara','LOCATION:Phnom Penh, Cambodia','DESCRIPTION:You are invited to celebrate with us.','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const blob=new Blob([ics],{type:'text/calendar;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a');a.href=url;a.download='wedding-invitation.ics';a.click();URL.revokeObjectURL(url);
+});
+</script>
 </body>
 </html>
