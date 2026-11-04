@@ -374,6 +374,7 @@ document.getElementById('openInvitation').addEventListener('click',()=>{
     requestAnimationFrame(()=>sections.slice(1).forEach(section=>sectionObserver.observe(section)));
   }
   window.scrollTo({top:0,behavior:'smooth'});
+  autoScrollTimeout=window.setTimeout(startAutoScroll,600);
   restartMomentTimer();
 });
 const momentGallery=document.getElementById('momentGallery');
@@ -382,6 +383,42 @@ const momentSlides=Array.from(momentTrack.querySelectorAll('img'));
 const momentDots=document.querySelector('.gallery-dots');
 const momentCounter=document.querySelector('.gallery-counter');
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let autoScrollTimeout=0;
+let autoScrollFrame=0;
+let lastAutoScrollTime=0;
+let previousScrollBehavior='';
+function stopAutoScroll(){
+  window.clearTimeout(autoScrollTimeout);
+  window.cancelAnimationFrame(autoScrollFrame);
+  autoScrollTimeout=0;
+  autoScrollFrame=0;
+  document.documentElement.style.scrollBehavior=previousScrollBehavior;
+}
+function advanceAutoScroll(timestamp){
+  if(!lastAutoScrollTime) lastAutoScrollTime=timestamp;
+  const elapsed=Math.min((timestamp-lastAutoScrollTime)/1000,.1);
+  lastAutoScrollTime=timestamp;
+  const maxScroll=document.documentElement.scrollHeight-window.innerHeight;
+  const nextScroll=Math.min(window.scrollY+50*elapsed,maxScroll);
+  window.scrollTo({top:nextScroll,behavior:'auto'});
+  if(nextScroll>=maxScroll){
+    autoScrollFrame=0;
+    document.documentElement.style.scrollBehavior=previousScrollBehavior;
+    return;
+  }
+  autoScrollFrame=window.requestAnimationFrame(advanceAutoScroll);
+}
+function startAutoScroll(){
+  if(reducedMotion) return;
+  previousScrollBehavior=document.documentElement.style.scrollBehavior;
+  document.documentElement.style.scrollBehavior='auto';
+  lastAutoScrollTime=0;
+  autoScrollFrame=window.requestAnimationFrame(advanceAutoScroll);
+}
+window.addEventListener('wheel',stopAutoScroll,{passive:true});
+window.addEventListener('touchstart',stopAutoScroll,{passive:true});
+window.addEventListener('pointerdown',stopAutoScroll);
+window.addEventListener('keydown',stopAutoScroll);
 let activeMoment=0;
 let momentTimer;
 momentSlides.forEach((slide,index)=>{
