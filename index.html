@@ -387,22 +387,35 @@ let autoScrollTimeout=0;
 let autoScrollFrame=0;
 let lastAutoScrollTime=0;
 let previousScrollBehavior='';
-function stopAutoScroll(){
-  window.clearTimeout(autoScrollTimeout);
+let autoScrollStarted=false;
+let isTouching=false;
+function pauseAutoScroll(){
+  isTouching=true;
   window.cancelAnimationFrame(autoScrollFrame);
-  autoScrollTimeout=0;
   autoScrollFrame=0;
-  document.documentElement.style.scrollBehavior=previousScrollBehavior;
+  lastAutoScrollTime=0;
+}
+function resumeAutoScroll(event){
+  if(event.touches&&event.touches.length) return;
+  isTouching=false;
+  if(autoScrollStarted&&!reducedMotion&&!autoScrollFrame){
+    autoScrollFrame=window.requestAnimationFrame(advanceAutoScroll);
+  }
 }
 function advanceAutoScroll(timestamp){
+  if(isTouching){
+    autoScrollFrame=0;
+    return;
+  }
   if(!lastAutoScrollTime) lastAutoScrollTime=timestamp;
-  const elapsed=Math.min((timestamp-lastAutoScrollTime)/1000,.1);
+  const elapsed=Math.min((timestamp-lastAutoScrollTime)/1000,.05);
   lastAutoScrollTime=timestamp;
   const maxScroll=document.documentElement.scrollHeight-window.innerHeight;
-  const nextScroll=Math.min(window.scrollY+50*elapsed,maxScroll);
+  const nextScroll=Math.min(window.scrollY+70*elapsed,maxScroll);
   window.scrollTo({top:nextScroll,behavior:'auto'});
   if(nextScroll>=maxScroll){
     autoScrollFrame=0;
+    autoScrollStarted=false;
     document.documentElement.style.scrollBehavior=previousScrollBehavior;
     return;
   }
@@ -412,13 +425,13 @@ function startAutoScroll(){
   if(reducedMotion) return;
   previousScrollBehavior=document.documentElement.style.scrollBehavior;
   document.documentElement.style.scrollBehavior='auto';
+  autoScrollStarted=true;
   lastAutoScrollTime=0;
-  autoScrollFrame=window.requestAnimationFrame(advanceAutoScroll);
+  if(!isTouching) autoScrollFrame=window.requestAnimationFrame(advanceAutoScroll);
 }
-window.addEventListener('wheel',stopAutoScroll,{passive:true});
-window.addEventListener('touchstart',stopAutoScroll,{passive:true});
-window.addEventListener('pointerdown',stopAutoScroll);
-window.addEventListener('keydown',stopAutoScroll);
+window.addEventListener('touchstart',pauseAutoScroll,{passive:true});
+window.addEventListener('touchend',resumeAutoScroll,{passive:true});
+window.addEventListener('touchcancel',resumeAutoScroll,{passive:true});
 let activeMoment=0;
 let momentTimer;
 momentSlides.forEach((slide,index)=>{
